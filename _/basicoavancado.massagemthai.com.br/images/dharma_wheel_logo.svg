@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#b8860b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Outer Rim -->
+  <circle cx="50" cy="50" r="45" />
+  <!-- Inner Rim -->
+  <circle cx="50" cy="50" r="40" stroke-width="2" />
+  <!-- Hub -->
+  <circle cx="50" cy="50" r="10" fill="#b8860b" />
+  <circle cx="50" cy="50" r="5" fill="#fff" />
+  
+  <!-- Spokes -->
+  <path d="M50 15 L50 40" />
+  <path d="M50 60 L50 85" />
+  <path d="M15 50 L40 50" />
+  <path d="M60 50 L85 50" />
+  
+  <path d="M25.25 25.25 L42.93 42.93" />
+  <path d="M74.75 74.75 L57.07 57.07" />
+  <path d="M25.25 74.75 L42.93 57.07" />
+  <path d="M74.75 25.25 L57.07 42.93" />
+</svg>

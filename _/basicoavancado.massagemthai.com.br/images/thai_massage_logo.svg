@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Solid Orange Circle Background -->
+  <circle cx="256" cy="256" r="256" fill="#f97316"/>
+  
+  <!-- White Abstract Figures -->
+  <g fill="#ffffff">
+    <!-- Top Figure Head -->
+    <ellipse cx="285" cy="140" rx="35" ry="42" transform="rotate(-15 285 140)"/>
+    <!-- Bottom Figure Head -->
+    <ellipse cx="380" cy="240" rx="32" ry="38" transform="rotate(30 380 240)"/>
+    
+    <!-- Intertwined Bodies Fluid Shape -->
+    <path d="M230,170 
+             C210,190 180,250 200,320 
+             Q210,360 260,380 
+             T350,380 
+             Q400,360 410,310 
+             L380,300 
+             Q370,340 330,350 
+             T250,340 
+             Q220,310 230,260 
+             C240,220 280,200 320,200 
+             Q360,200 380,180 
+             L360,160 
+             Q320,180 280,170 
+             T230,170 Z"/>
+             
+    <!-- Arm/Leg Abstract Curves -->
+    <path d="M180,280 
+             Q140,320 120,380 
+             T140,440 
+             L170,420 
+             Q160,390 170,350 
+             T210,300 
+             Z"/>
+             
+    <path d="M280,220 
+             Q320,240 340,280 
+             L310,300 
+             Q300,260 270,250 
+             Z"/>
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+---
+"gem": '--remote --gen-rdoc --run-tests'
+"gemhome": '/home2/maisyo09/ruby/gems'
+"gempath": []
+
+"rdoc": '--inline-source --line-numbers'
