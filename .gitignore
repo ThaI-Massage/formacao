@@ -1,0 +1,31 @@
+# Backups e versões antigas (não devem ir pro repo)
+index_backup_*.html
+*_backup.html
+*_v2.html
+*_v3.html
+live_index.html
+origin.html
+pages_test.html
+basico_avancado.html
+index_preview.html
+
+# Scripts de deploy antigos (FTP morto)
+deploy.ps1
+deploy_fixed.ps1
+replace_links.py
+optimize_certs.py
+
+# Build artifacts / tooling
+.wrangler/
+.DS_Store
+node_modules/
+dist/
+.env
+.env.local
+
+# App.tsx (arquivo de teste)
+App.tsx
+
+# IDE
+.vscode/
+.idea/
