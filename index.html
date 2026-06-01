@@ -840,6 +840,12 @@
             box-shadow: 0 20px 50px rgba(91, 124, 83, 0.15);
         }
 
+        .price-card.premium {
+            border: 2px solid var(--secondary);
+            background: var(--white);
+            box-shadow: 0 20px 50px rgba(198, 142, 98, 0.15);
+        }
+
         .price-badge {
             position: absolute;
             top: -14px;
@@ -863,6 +869,11 @@
             background: var(--white);
             border: 1px solid rgba(0, 0, 0, 0.05);
             color: var(--text-secondary);
+        }
+
+        .price-badge.premium {
+            background: linear-gradient(135deg, var(--secondary), #a36d44);
+            color: var(--white);
         }
 
         .price-value {
@@ -1315,9 +1326,20 @@
 
             .hero-grid,
             .professor-grid,
-            .cert-grid,
+            .cert-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
             .pricing-grid {
                 grid-template-columns: 1fr 1fr;
+                max-width: 900px;
+            }
+        }
+
+        @media(min-width:1024px) {
+            .pricing-grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 1200px;
             }
         }
 
@@ -2041,6 +2063,30 @@
                         onclick="fbq('track', 'InitiateCheckout', {value: 297.00, currency: 'BRL'});"
                         data-tracking="checkout_vitalicio" class="cta-btn"
                         style="width:100%;justify-content:center; background-color: #00C853; color: #ffffff; box-shadow: 0 10px 25px rgba(0, 200, 83, 0.4);">ACESSO VITALÍCIO</a>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px; text-align: center;"><i class="fas fa-lock" style="font-size: 10px;"></i> Liberação imediata via Pix</p>
+                </div>
+                <div class="glass price-card premium reveal" style="transition-delay:0.3s">
+                    <div class="price-badge premium">👑 Master Thai</div>
+                    <div class="price-value"><span class="installments" style="font-size: 1.4em; font-weight: 800;">12x de</span><span
+                            class="currency gradient-text">R$</span><span class="amount gradient-text">51,<small
+                                class="cents">40</small></span></div>
+                    <p>ou <strong>R$ 497</strong> à vista</p>
+                    <ul class="price-list">
+                        <li><i class="fas fa-check"></i> <strong>Mais aulas</strong> que os outros planos</li>
+                        <li><i class="fas fa-check"></i> <strong>Mais manobras</strong> detalhadas</li>
+                        <li><i class="fas fa-check"></i> Apostila inclusa</li>
+                        <li><i class="fas fa-check"></i> Certificado de 32h</li>
+                        <li><i class="fas fa-infinity" style="color:var(--secondary)"></i><strong
+                                style="color:var(--secondary)">Acesso VITALÍCIO</strong></li>
+                        <li style="color:var(--secondary); font-weight: 600;"><i class="fas fa-gift"></i> Cupom p/
+                            Presencial</li>
+                        <li style="color:var(--secondary); font-weight: 600;"><i class="fas fa-users"></i> Mentoria semanal c/ Professor</li>
+                        <li style="color:var(--secondary); font-weight: 600;"><i class="fas fa-phone-alt"></i> Chamada pessoal c/ Professor</li>
+                        <li style="color:var(--secondary); font-weight: 600;"><i class="fas fa-id-card"></i> Divulgação como terapeuta indicado</li>
+                    </ul><a href="https://pay.kiwify.com.br/itgl74b" target="_blank" rel="noopener noreferrer"
+                        onclick="fbq('track', 'InitiateCheckout', {value: 497.00, currency: 'BRL'});"
+                        data-tracking="checkout_master" class="cta-btn"
+                        style="width:100%;justify-content:center; background-color: var(--secondary); color: #ffffff; box-shadow: 0 10px 25px rgba(198, 142, 98, 0.4);">QUERO SER MASTER</a>
                     <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px; text-align: center;"><i class="fas fa-lock" style="font-size: 10px;"></i> Liberação imediata via Pix</p>
                 </div>
             </div>
