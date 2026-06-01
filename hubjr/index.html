@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub de Projetos - Massagem Thai</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Modo Offline (Dark/Neon) */
+            --bg-color: #0f172a;
+            --bg-gradient: radial-gradient(circle at 15% 50%, rgba(30, 41, 59, 1), rgba(15, 23, 42, 1));
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(51, 65, 85, 0.5);
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --status-color: #f59e0b; /* Laranja para offline */
+        }
+
+        body.online-mode {
+            /* Modo Online (Light/Vibrant Glass) */
+            --bg-color: #f0fdf4;
+            --bg-gradient: radial-gradient(circle at 85% 50%, #dcfce7, #f0fdf4);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(255, 255, 255, 0.4);
+            --card-shadow: 0 8px 32px rgba(34, 197, 94, 0.15);
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --accent-glow: rgba(16, 185, 129, 0.4);
+            --status-color: #10b981; /* Verde para online */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 20px 40px;
+            overflow-x: hidden;
+        }
+
+        /* Efeito de background animado */
+        .bg-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            transition: all 1s ease;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            background: var(--accent);
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -100px;
+            background: var(--status-color);
+        }
+
+        /* Toggle Switch Estilizado */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+        }
+
+        .mode-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .mode-label.active {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 42px;
+            height: 22px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid var(--card-border);
+            transition: .4s;
+            border-radius: 22px;
+            overflow: hidden;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: var(--status-color);
+            transition: .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--status-color);
+            z-index: 2;
+        }
+
+        input:checked + .slider {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+            background-color: var(--status-color);
+            box-shadow: 0 0 6px var(--status-color);
+        }
+
+        .section-container {
+            width: 100%;
+            max-width: 1600px;
+            margin-bottom: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            position: relative;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .section-container:hover .section-title::after {
+            width: 60px;
+        }
+
+        .cards-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            width: 100%;
+            max-width: 1600px;
+            justify-content: center;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 16px 10px;
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            animation: fadeInUp 0.6s ease-out backwards;
+            flex: 1 1 280px;
+            max-width: 320px;
+            min-width: 220px;
+        }
+
+        .card.type-online {
+            border-color: rgba(59, 130, 246, 0.5);
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+        }
+
+        .card.type-presencial {
+            border-color: rgba(16, 185, 129, 0.5);
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.5);
+        }
+
+        .card.type-tools {
+            border-color: rgba(245, 158, 11, 0.5);
+            --accent: #f59e0b;
+            --accent-glow: rgba(245, 158, 11, 0.5);
+        }
+
+        .card.type-automation {
+            border-color: rgba(168, 85, 247, 0.5);
+            --accent: #a855f7;
+            --accent-glow: rgba(168, 85, 247, 0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 40px var(--accent-glow);
+            border-color: var(--accent);
+        }
+
+        /* Efeito de brilho ao passar o mouse */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: skewX(-25deg);
+            transition: 0.5s;
+        }
+
+        .card:hover::after {
+            left: 150%;
+            transition: 0.7s ease-in-out;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            background: var(--card-bg);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .card-link-preview {
+            font-size: 0.65rem;
+            color: var(--accent);
+            background: rgba(128, 128, 128, 0.1);
+            padding: 4px 8px;
+            border-radius: 8px;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border: 1px solid transparent;
+            font-family: monospace;
+        }
+
+        /* Animações */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(var(--status-color), 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(var(--status-color), 0); }
+            100% { box-shadow: 0 0 0 0 rgba(var(--status-color), 0); }
+        }
+
+        /* Admin Toolbar */
+        .admin-toolbar {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 8px 20px;
+            border-radius: 50px;
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            box-shadow: var(--card-shadow);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: fadeInDown 0.8s ease-out;
+            white-space: nowrap;
+        }
+
+        .admin-toolbar:hover {
+            box-shadow: 0 8px 32px var(--accent-glow);
+            border-color: var(--accent);
+        }
+
+        .toolbar-divider {
+            width: 1px;
+            height: 20px;
+            background: var(--card-border);
+            margin: 0 4px;
+        }
+
+        .toolbar-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .toolbar-link:hover {
+            background: rgba(128, 128, 128, 0.1);
+            color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .toolbar-link i,
+        .toolbar-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .admin-toolbar { 
+                top: 10px;
+                bottom: auto;
+                font-size: 0.75rem;
+                padding: 6px 10px;
+                gap: 4px;
+                max-width: 95vw;
+                overflow-x: auto;
+                justify-content: flex-start;
+            }
+            .toolbar-link { padding: 4px 6px; }
+            body { padding-top: 100px; padding-bottom: 40px; }
+        }
+
+        /* Layout principal para desktop - Tudo em uma única tela sem rolagem */
+        .sections-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1600px;
+            gap: 20px;
+        }
+
+        @media (min-width: 1025px) {
+            body {
+                padding: 70px 20px 20px;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .sections-wrapper {
+                flex-direction: row;
+                justify-content: center;
+                align-items: stretch;
+                margin-top: 10px;
+                height: calc(100vh - 110px);
+            }
+
+            .section-container {
+                flex: 1;
+                margin-bottom: 0;
+                background: rgba(30, 41, 59, 0.25);
+                border: 1px solid rgba(255, 255, 255, 0.03);
+                border-radius: 20px;
+                padding: 16px 12px;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+
+            body.online-mode .section-container {
+                background: rgba(255, 255, 255, 0.25);
+                border-color: rgba(0, 0, 0, 0.02);
+            }
+
+            .section-title {
+                font-size: 1.05rem;
+                margin-bottom: 16px;
+            }
+
+            .cards-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: minmax(90px, 1fr);
+                gap: 10px;
+                width: 100%;
+                height: calc(100% - 35px);
+                justify-content: stretch;
+                align-content: start;
+            }
+
+            /* Automação has 6 cards. Grid can fit them nicely. */
+            #auto-cards-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Dashboard has 1 card. Center it or let it take full width of column. */
+            #main-cards-container {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 110px;
+            }
+
+            /* Landing pages has 4 cards. 2x2 grid fits perfectly. */
+            #lp-cards-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .card {
+                flex: none;
+                max-width: none;
+                min-width: 0;
+                width: 100%;
+                height: 100%;
+                padding: 10px 8px;
+                justify-content: center;
+            }
+
+            .card-icon {
+                font-size: 1.5rem;
+                margin-bottom: 4px;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+                margin-bottom: 2px;
+            }
+            
+            .card-link-preview {
+                font-size: 0.68rem;
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    <nav class="admin-toolbar">
+        <a href="https://www.cloudflare.com/pt-br/" target="_blank" rel="noopener noreferrer" class="toolbar-link">
+            <img class="toolbar-icon" src="https://www.cloudflare.com/favicon.ico" alt="Cloudflare"> Cloudflare
+        </a>
+        <a href="https://painel.napoleon.com.br/clientarea.php" target="_blank" rel="noopener noreferrer" class="toolbar-link">
+            <img class="toolbar-icon" src="https://napoleon.com.br/wp-content/uploads/2024/10/cropped-Asset-8@2x-8-192x192.png" alt="Napoleon"> Napoleon
+        </a>
+        <a href="https://analytics.google.com/analytics/web/?hl=pt-br#/" target="_blank" rel="noopener noreferrer" class="toolbar-link">
+            <img class="toolbar-icon" src="https://upload.wikimedia.org/wikipedia/commons/7/77/GAnalytics.svg" alt="Analytics"> Analytics
+        </a>
+        <a href="https://docs.google.com/spreadsheets/u/0/" target="_blank" rel="noopener noreferrer" class="toolbar-link">
+            <img class="toolbar-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Google_Sheets_2020_Logo.svg" alt="Sheets"> Sheets
+        </a>
+        <a href="https://docs.google.com/document/u/0/" target="_blank" rel="noopener noreferrer" class="toolbar-link">
+            <img class="toolbar-icon" src="https://upload.wikimedia.org/wikipedia/commons/1/18/Google_Docs_icon_%282026%29.svg" alt="Docs"> Docs
+        </a>
+        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer" class="toolbar-link">
+            <img class="toolbar-icon" src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail"> Gmail
+        </a>
+        <div class="toolbar-divider"></div>
+        <a href="https://yellow-grass-87f0.jrbenk2-0.workers.dev/qr?token=thai-sync-7k9m2x4rZp" target="_blank" rel="noopener" class="toolbar-link" id="bot-status" title="Clique pra reconectar se estiver offline">
+            <span id="bot-status-dot" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#666;margin-right:4px;box-shadow:0 0 6px #666;transition:all .3s"></span>
+            <span id="bot-status-label">Bot ...</span>
+        </a>
+        <div class="toolbar-divider"></div>
+        <div class="toggle-container">
+            <span class="mode-label active" id="label-offline">Off-line</span>
+            <label class="switch">
+                <input type="checkbox" id="mode-toggle" aria-label="Alternar modo Online/Offline">
+                <span class="slider"></span>
+            </label>
+            <span class="mode-label" id="label-online">On-line</span>
+        </div>
+    </nav>
+    <script>
+        // Status do bot (WhatsApp Evolution) — atualiza a cada 30s
+        async function updateBotStatus() {
+            const dot = document.getElementById('bot-status-dot');
+            const label = document.getElementById('bot-status-label');
+            try {
+                const r = await fetch('https://yellow-grass-87f0.jrbenk2-0.workers.dev/health', { cache: 'no-store' });
+                const data = await r.json();
+                if (data.status === 'ok') {
+                    dot.style.background = '#10b981';
+                    dot.style.boxShadow = '0 0 8px #10b981';
+                    label.textContent = 'Bot ON';
+                } else if (data.status === 'connecting') {
+                    dot.style.background = '#fbbf24';
+                    dot.style.boxShadow = '0 0 8px #fbbf24';
+                    label.textContent = 'Bot conectando';
+                } else {
+                    dot.style.background = '#ef4444';
+                    dot.style.boxShadow = '0 0 8px #ef4444';
+                    label.textContent = 'Bot OFFLINE';
+                }
+            } catch (e) {
+                dot.style.background = '#ef4444';
+                dot.style.boxShadow = '0 0 8px #ef4444';
+                label.textContent = 'Bot ?';
+            }
+        }
+        updateBotStatus();
+        setInterval(updateBotStatus, 30000);
+    </script>
+
+    <div class="sections-wrapper">
+        <div class="section-container">
+            <h2 class="section-title">Automação</h2>
+            <div class="cards-grid" id="auto-cards-container">
+                <!-- Cards serão renderizados via JavaScript -->
+            </div>
+        </div>
+
+        <div class="section-container">
+            <h2 class="section-title">Ferramentas & Métricas</h2>
+            <div class="cards-grid" id="main-cards-container">
+                <!-- Cards serão renderizados via JavaScript -->
+            </div>
+        </div>
+
+        <div class="section-container">
+            <h2 class="section-title">Landing Pages</h2>
+            <div class="cards-grid" id="lp-cards-container">
+                <!-- Cards serão renderizados via JavaScript -->
+            </div>
+        </div>
+    </div>
+    <script>
+        // Dados dos projetos
+        const projects = [
+            // Landing Pages
+            {
+                id: 1,
+                title: "Básico ao Avançado",
+                desc: "Página de vendas do treinamento Básico ao Avançado em Massagem Thai.",
+                icon: "🌿",
+                offlineUrl: "file:///C:/JOB/CURSO%20THAI%20BACKUP/DIVULGACAO/PAGINA%20DE%20VENDAS/BASICO%20AO%20AVANCADO/index.html",
+                onlineUrl: "https://basicoavancado.massagemthai.com.br/",
+                delay: "0.1s",
+                type: "type-online",
+                section: "lp"
+            },
+            {
+                id: 2,
+                title: "Formação Completa Thai Massage",
+                desc: "Página principal da Formação Completa atualizada (v2).",
+                icon: "✨",
+                offlineUrl: "file:///C:/JOB/CURSO%20THAI%20BACKUP/DIVULGACAO/PAGINA%20DE%20VENDAS/FORMACAO%20COMPLETA%20THAI%20MASSAGE/index.html",
+                onlineUrl: "https://formacaocompleta.massagemthai.com.br/",
+                delay: "0.2s",
+                type: "type-online",
+                section: "lp"
+            },
+            {
+                id: 5,
+                title: "Presencial Caxias do Sul",
+                desc: "Página de divulgação do evento presencial em Caxias do Sul.",
+                icon: "🍇",
+                offlineUrl: "file:///C:/JOB/CURSO%20THAI%20BACKUP/DIVULGACAO/PAGINA%20DE%20VENDAS/PRESENCIAL%20CAXIAS%20DO%20SUL/index.html",
+                onlineUrl: "https://caxias.massagemthai.com.br/",
+                delay: "0.3s",
+                type: "type-presencial",
+                section: "lp"
+            },
+            {
+                id: 7,
+                title: "BIO",
+                desc: "Link na Bio - Arnoldo Benkenstein",
+                icon: "🔗",
+                offlineUrl: "file:///C:/JOB/CURSO%20THAI%20BACKUP/DIVULGACAO/PAGINA%20DE%20VENDAS/BIO/index.html",
+                onlineUrl: "http://bio.massagemthai.com.br/",
+                delay: "0.4s",
+                type: "type-tools",
+                section: "lp"
+            },
+            // Ferramentas & Métricas
+            {
+                id: 9,
+                title: "Dashboard",
+                desc: "Métricas e resultados (GA4).",
+                icon: "📊",
+                offlineUrl: "https://datadashboard.massagemthai.com.br/",
+                onlineUrl: "https://datadashboard.massagemthai.com.br/",
+                delay: "0.1s",
+                type: "type-tools",
+                section: "main"
+            },
+            // Automação
+            {
+                id: 10,
+                title: "Typebot Builder",
+                desc: "Criador de fluxos de conversação do Typebot.",
+                icon: "🤖",
+                offlineUrl: "https://typebot.massagemthai.com.br",
+                onlineUrl: "https://typebot.massagemthai.com.br",
+                delay: "0.1s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 11,
+                title: "Typebot Viewer",
+                desc: "Visualização do bot para o usuário final.",
+                icon: "💬",
+                offlineUrl: "https://bot.massagemthai.com.br",
+                onlineUrl: "https://bot.massagemthai.com.br",
+                delay: "0.2s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 12,
+                title: "Evolution API",
+                desc: "Gerenciador da Evolution API (WhatsApp).",
+                icon: "⚡",
+                offlineUrl: "https://evo.massagemthai.com.br/manager",
+                onlineUrl: "https://evo.massagemthai.com.br/manager",
+                delay: "0.3s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 13,
+                title: "EasyPanel",
+                desc: "Painel de controle de contêineres e aplicações VPS.",
+                icon: "🐳",
+                offlineUrl: "http://187.77.7.216:3000",
+                onlineUrl: "http://187.77.7.216:3000",
+                delay: "0.4s",
+                type: "type-tools",
+                section: "auto"
+            },
+            {
+                id: 14,
+                title: "Hostinger",
+                desc: "Painel de controle VPS Hostinger.",
+                icon: "☁️",
+                offlineUrl: "https://hpanel.hostinger.com",
+                onlineUrl: "https://hpanel.hostinger.com",
+                delay: "0.5s",
+                type: "type-tools",
+                section: "auto"
+            },
+            {
+                id: 15,
+                title: "MinIO Typebot",
+                desc: "Gerenciador de uploads e arquivos do Typebot.",
+                icon: "🪣",
+                offlineUrl: "https://console-tupebot-minio.oxs1sg.easypanel.host/browser/typebot",
+                onlineUrl: "https://console-tupebot-minio.oxs1sg.easypanel.host/browser/typebot",
+                delay: "0.6s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 16,
+                title: "Resetar Teste do Bot",
+                desc: "Zera a conversa com o bot pra testar do zero (você + Grazy).",
+                icon: "🧪",
+                offlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/reset-test?token=thai-sync-7k9m2x4rZp&n=5551985742059,555193536263",
+                onlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/reset-test?token=thai-sync-7k9m2x4rZp&n=5551985742059,555193536263",
+                delay: "0.7s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 18,
+                title: "Reconectar WhatsApp",
+                desc: "Gera QR Code novo pra parear o WhatsApp Business com o Evolution. Use quando o bot não responder.",
+                icon: "📱",
+                offlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/qr?token=thai-sync-7k9m2x4rZp",
+                onlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/qr?token=thai-sync-7k9m2x4rZp",
+                delay: "0.8s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 19,
+                title: "Leads Capturados",
+                desc: "Lista todos os leads que o bot capturou (com nome+email).",
+                icon: "📋",
+                offlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/leads?token=thai-sync-7k9m2x4rZp",
+                onlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/leads?token=thai-sync-7k9m2x4rZp",
+                delay: "0.9s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 20,
+                title: "Auditoria Bot",
+                desc: "Mostra leads que mandaram mensagem mas o bot não respondeu (últimas 24h).",
+                icon: "🔍",
+                offlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/audit?token=thai-sync-7k9m2x4rZp&hours=24",
+                onlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/audit?token=thai-sync-7k9m2x4rZp&hours=24",
+                delay: "1.0s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 21,
+                title: "Chatwoot",
+                desc: "Inbox unificada dos leads do WhatsApp. Use pra responder manualmente ou disparar 'Então...' pra tomar conversa da IA.",
+                icon: "💬",
+                offlineUrl: "https://chat.massagemthai.com.br",
+                onlineUrl: "https://chat.massagemthai.com.br",
+                delay: "1.1s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 22,
+                title: "Postar Próxima Dica",
+                desc: "Pega a próxima dica não postada da planilha e manda nos 2 grupos. Slot (manhã/noite) detectado pela hora atual.",
+                icon: "📢",
+                offlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/dicas/post-next?token=thai-sync-7k9m2x4rZp",
+                onlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/dicas/post-next?token=thai-sync-7k9m2x4rZp",
+                delay: "1.2s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 23,
+                title: "Status das Dicas",
+                desc: "Lista todas as dicas da planilha + quais já foram postadas.",
+                icon: "📋",
+                offlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/dicas/list?token=thai-sync-7k9m2x4rZp",
+                onlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/dicas/list?token=thai-sync-7k9m2x4rZp",
+                delay: "1.3s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 24,
+                title: "Backup Leads (Email)",
+                desc: "Manda email pra você com CSV dos leads capturados + estatísticas. Roda automático 6h e 18h, mas clica aqui pra forçar agora.",
+                icon: "💾",
+                offlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/export-leads?token=thai-sync-7k9m2x4rZp",
+                onlineUrl: "https://yellow-grass-87f0.jrbenk2-0.workers.dev/export-leads?token=thai-sync-7k9m2x4rZp",
+                delay: "1.4s",
+                type: "type-automation",
+                section: "auto"
+            },
+            {
+                id: 17,
+                title: "Meta Ads",
+                desc: "Gerenciador de anúncios do Facebook/Instagram.",
+                icon: "📈",
+                offlineUrl: "https://adsmanager.facebook.com/adsmanager/manage/campaigns?global_scope_id=547782929116525&business_id=547782929116525&act=629980051185540",
+                onlineUrl: "https://adsmanager.facebook.com/adsmanager/manage/campaigns?global_scope_id=547782929116525&business_id=547782929116525&act=629980051185540",
+                delay: "0.3s",
+                type: "type-online",
+                section: "main"
+            }
+        ];
+
+        const toggleBtn = document.getElementById('mode-toggle');
+        const mainContainer = document.getElementById('main-cards-container');
+        const lpContainer = document.getElementById('lp-cards-container');
+        const autoContainer = document.getElementById('auto-cards-container');
+        const labelOffline = document.getElementById('label-offline');
+        const labelOnline = document.getElementById('label-online');
+        
+        // Estado inicial
+        let isOnline = false;
+
+        function createCard(proj) {
+            const currentUrl = isOnline ? proj.onlineUrl : proj.offlineUrl;
+            
+            // Tratamento inteligente do link de visualização (preview)
+            let displayUrl = '';
+            if (currentUrl.startsWith('file:///')) {
+                displayUrl = currentUrl.split('/').slice(-3, -1).join('/');
+            } else {
+                displayUrl = currentUrl.replace('https://', '').replace('http://', '').replace(/\/$/, '');
+            }
+
+            const card = document.createElement('a');
+            card.href = currentUrl;
+            card.className = `card ${proj.type}`;
+            card.style.animationDelay = proj.delay;
+            card.target = "_blank"; 
+
+            card.innerHTML = `
+                <div class="card-icon">${proj.icon}</div>
+                <h2 class="card-title">${proj.title}</h2>
+                <div class="card-link-preview">${displayUrl}</div>
+            `;
+            return card;
+        }
+
+        // Função para renderizar os cards
+        function renderCards() {
+            mainContainer.innerHTML = '';
+            lpContainer.innerHTML = '';
+            autoContainer.innerHTML = '';
+            
+            projects.forEach(proj => {
+                const card = createCard(proj);
+                if (proj.section === 'lp') {
+                    lpContainer.appendChild(card);
+                } else if (proj.section === 'auto') {
+                    autoContainer.appendChild(card);
+                } else {
+                    mainContainer.appendChild(card);
+                }
+            });
+        }
+
+        // Evento de alteração do Switch
+        toggleBtn.addEventListener('change', (e) => {
+            isOnline = e.target.checked;
+            
+            if (isOnline) {
+                document.body.classList.add('online-mode');
+                labelOnline.classList.add('active');
+                labelOffline.classList.remove('active');
+            } else {
+                document.body.classList.remove('online-mode');
+                labelOffline.classList.add('active');
+                labelOnline.classList.remove('active');
+            }
+
+            mainContainer.style.opacity = 0;
+            lpContainer.style.opacity = 0;
+            autoContainer.style.opacity = 0;
+            setTimeout(() => {
+                renderCards();
+                mainContainer.style.opacity = 1;
+                lpContainer.style.opacity = 1;
+                autoContainer.style.opacity = 1;
+            }, 300);
+        });
+
+        // Transição suave para os containers
+        mainContainer.style.transition = 'opacity 0.3s ease';
+        lpContainer.style.transition = 'opacity 0.3s ease';
+        autoContainer.style.transition = 'opacity 0.3s ease';
+
+        // Inicialização
+        renderCards();
+    </script>
+</body>
+</html>
