@@ -309,18 +309,36 @@
             line-height: 1.3;
         }
 
-        .card-link-preview {
-            font-size: 0.65rem;
-            color: var(--accent);
-            background: rgba(128, 128, 128, 0.1);
+
+        /* Botão de Copiar URL */
+        .copy-btn {
+            margin-top: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
             padding: 4px 8px;
-            border-radius: 8px;
-            width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            border: 1px solid transparent;
-            font-family: monospace;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            z-index: 10;
+            position: relative;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #ffffff;
+            box-shadow: 0 0 12px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
         }
 
         /* Animações */
@@ -430,6 +448,19 @@
             gap: 20px;
         }
 
+
+        @media (max-width: 1024px) {
+            .section-lp {
+                order: 1;
+            }
+            .section-auto {
+                order: 2;
+            }
+            .section-main {
+                order: 3;
+            }
+        }
+
         @media (min-width: 1025px) {
             body {
                 padding: 70px 20px 20px;
@@ -458,6 +489,18 @@
                 display: flex;
                 flex-direction: column;
                 height: 100%;
+            }
+
+            .section-auto {
+                order: 1;
+            }
+
+            .section-main {
+                order: 2;
+            }
+
+            .section-lp {
+                order: 3;
             }
 
             body.online-mode .section-container {
@@ -516,15 +559,124 @@
                 font-size: 0.85rem;
                 margin-bottom: 2px;
             }
-            
-            .card-link-preview {
-                font-size: 0.68rem;
-                margin-top: 0;
-            }
+
+        }
+
+        /* Calculador de ROI */
+        .roi-panel {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+            flex-grow: 1;
+            justify-content: center;
+        }
+        
+        body.online-mode .roi-panel {
+            background: rgba(0, 0, 0, 0.02);
+        }
+        
+        .roi-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            text-align: center;
+        }
+        
+        .roi-row {
+            margin-bottom: 8px;
+        }
+        
+        .roi-row label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        
+        .roi-row label span.val-display {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        .roi-inputs input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            outline: none;
+        }
+        
+        body.online-mode .roi-inputs input[type="range"] {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .roi-inputs input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 0 6px var(--accent-glow);
+            transition: transform 0.1s;
+        }
+        
+        .roi-inputs input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        
+        .roi-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        
+        .roi-res-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .roi-res-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+        
+        .roi-res-value {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        
+        .roi-res-value.positive {
+            color: #10b981 !important;
+        }
+        
+        .roi-res-value.negative {
+            color: #ef4444 !important;
         }
     </style>
 </head>
-<body>
+<body class="online-mode">
 
     <div class="bg-shapes">
         <div class="shape shape-1"></div>
@@ -557,12 +709,12 @@
         </a>
         <div class="toolbar-divider"></div>
         <div class="toggle-container">
-            <span class="mode-label active" id="label-offline">Off-line</span>
+            <span class="mode-label" id="label-offline">Off-line</span>
             <label class="switch">
-                <input type="checkbox" id="mode-toggle" aria-label="Alternar modo Online/Offline">
+                <input type="checkbox" id="mode-toggle" aria-label="Alternar modo Online/Offline" checked>
                 <span class="slider"></span>
             </label>
-            <span class="mode-label" id="label-online">On-line</span>
+            <span class="mode-label active" id="label-online">On-line</span>
         </div>
     </nav>
     <script>
@@ -597,21 +749,63 @@
     </script>
 
     <div class="sections-wrapper">
-        <div class="section-container">
+        <div class="section-container section-auto">
             <h2 class="section-title">Automação</h2>
             <div class="cards-grid" id="auto-cards-container">
                 <!-- Cards serão renderizados via JavaScript -->
             </div>
         </div>
 
-        <div class="section-container">
+        <div class="section-container section-main">
             <h2 class="section-title">Ferramentas & Métricas</h2>
             <div class="cards-grid" id="main-cards-container">
                 <!-- Cards serão renderizados via JavaScript -->
             </div>
+
+            <!-- Calculador de ROI -->
+            <div class="roi-panel">
+                <h3 class="roi-title">Calculadora de ROI</h3>
+                
+                <div class="roi-inputs">
+                    <div class="roi-row">
+                        <label for="roi-sales">
+                            <span>Vendas:</span>
+                            <span id="roi-sales-val" class="val-display">10</span>
+                        </label>
+                        <input type="range" id="roi-sales" min="1" max="100" value="10">
+                    </div>
+                    
+                    <div class="roi-row">
+                        <label for="roi-ads">
+                            <span>Anúncios:</span>
+                            <span id="roi-ads-val" class="val-display">R$ 300</span>
+                        </label>
+                        <input type="range" id="roi-ads" min="0" max="5000" value="300" step="50">
+                    </div>
+                </div>
+                
+                <div class="roi-results">
+                    <div class="roi-res-card">
+                        <div class="roi-res-label">Comissão</div>
+                        <div class="roi-res-value">R$ 104,54</div>
+                    </div>
+                    <div class="roi-res-card">
+                        <div class="roi-res-label">Faturamento</div>
+                        <div id="roi-earnings" class="roi-res-value">R$ 1.045,40</div>
+                    </div>
+                    <div class="roi-res-card">
+                        <div class="roi-res-label">Lucro Líquido</div>
+                        <div id="roi-net-profit" class="roi-res-value">R$ 745,40</div>
+                    </div>
+                    <div class="roi-res-card">
+                        <div class="roi-res-label">ROI</div>
+                        <div id="roi-percentage" class="roi-res-value positive">+248,5%</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="section-container">
+        <div class="section-container section-lp">
             <h2 class="section-title">Landing Pages</h2>
             <div class="cards-grid" id="lp-cards-container">
                 <!-- Cards serão renderizados via JavaScript -->
@@ -854,18 +1048,10 @@
         const labelOnline = document.getElementById('label-online');
         
         // Estado inicial
-        let isOnline = false;
+        let isOnline = true;
 
         function createCard(proj) {
             const currentUrl = isOnline ? proj.onlineUrl : proj.offlineUrl;
-            
-            // Tratamento inteligente do link de visualização (preview)
-            let displayUrl = '';
-            if (currentUrl.startsWith('file:///')) {
-                displayUrl = currentUrl.split('/').slice(-3, -1).join('/');
-            } else {
-                displayUrl = currentUrl.replace('https://', '').replace('http://', '').replace(/\/$/, '');
-            }
 
             const card = document.createElement('a');
             card.href = currentUrl;
@@ -873,10 +1059,20 @@
             card.style.animationDelay = proj.delay;
             card.target = "_blank"; 
 
+            let copyButtonHtml = '';
+            if (proj.section === 'lp') {
+                copyButtonHtml = `
+                    <button class="copy-btn" title="Copiar URL destino" onclick="copyToClipboard(event, '${currentUrl}', this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; vertical-align: middle;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span>Copiar URL</span>
+                    </button>
+                `;
+            }
+
             card.innerHTML = `
                 <div class="card-icon">${proj.icon}</div>
                 <h2 class="card-title">${proj.title}</h2>
-                <div class="card-link-preview">${displayUrl}</div>
+                ${copyButtonHtml}
             `;
             return card;
         }
@@ -929,8 +1125,93 @@
         lpContainer.style.transition = 'opacity 0.3s ease';
         autoContainer.style.transition = 'opacity 0.3s ease';
 
+        // Função global para copiar URL
+        function copyToClipboard(event, url, btn) {
+            event.preventDefault();
+            event.stopPropagation();
+            navigator.clipboard.writeText(url).then(() => {
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; vertical-align: middle;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span style="color: #10b981; font-weight: 600;">Copiado!</span>
+                `;
+                btn.style.borderColor = '#10b981';
+                btn.style.background = 'rgba(16, 185, 129, 0.1)';
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.style.borderColor = '';
+                    btn.style.background = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Erro ao copiar URL: ', err);
+            });
+        }
+
+        // Calculador de ROI Lógica
+        function calculateRoi() {
+            const salesInput = document.getElementById('roi-sales');
+            const adsInput = document.getElementById('roi-ads');
+            if (!salesInput || !adsInput) return;
+
+            const salesCount = parseInt(salesInput.value, 10);
+            const adsSpend = parseInt(adsInput.value, 10);
+            
+            // display val
+            document.getElementById('roi-sales-val').textContent = salesCount;
+            document.getElementById('roi-ads-val').textContent = `R$ ${adsSpend.toLocaleString('pt-BR')}`;
+            
+            const earnings = salesCount * 104.54;
+            const netProfit = earnings - adsSpend;
+            
+            let roi = 0;
+            if (adsSpend > 0) {
+                roi = ((netProfit / adsSpend) * 100).toFixed(1);
+            } else {
+                roi = netProfit > 0 ? '100' : '0';
+            }
+            
+            // Format BRL
+            document.getElementById('roi-earnings').textContent = `R$ ${earnings.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+            
+            const netProfitEl = document.getElementById('roi-net-profit');
+            const isNegative = netProfit < 0;
+            const absoluteVal = Math.abs(netProfit);
+            const formattedProfit = absoluteVal.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+            netProfitEl.textContent = isNegative ? `- R$ ${formattedProfit}` : `R$ ${formattedProfit}`;
+            
+            if (isNegative) {
+                netProfitEl.classList.add('negative');
+                netProfitEl.classList.remove('positive');
+            } else {
+                netProfitEl.classList.add('positive');
+                netProfitEl.classList.remove('negative');
+            }
+            
+            const roiEl = document.getElementById('roi-percentage');
+            const isRoiNegative = parseFloat(roi) < 0;
+            roiEl.textContent = `${isRoiNegative ? '' : '+'}${parseFloat(roi).toLocaleString('pt-BR')}%`;
+            
+            if (isRoiNegative) {
+                roiEl.classList.add('negative');
+                roiEl.classList.remove('positive');
+            } else if (parseFloat(roi) > 0) {
+                roiEl.classList.add('positive');
+                roiEl.classList.remove('negative');
+            } else {
+                roiEl.classList.remove('positive', 'negative');
+            }
+        }
+
+        const roiSalesEl = document.getElementById('roi-sales');
+        const roiAdsEl = document.getElementById('roi-ads');
+        if (roiSalesEl && roiAdsEl) {
+            roiSalesEl.addEventListener('input', calculateRoi);
+            roiAdsEl.addEventListener('input', calculateRoi);
+        }
+
         // Inicialização
         renderCards();
+        calculateRoi();
     </script>
 </body>
 </html>
