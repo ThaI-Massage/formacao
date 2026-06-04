@@ -591,8 +591,9 @@
 
         @media (max-width: 1024px) {
             .section-lp { order: 1; }
-            .section-auto { order: 2; }
-            .section-main { order: 3; }
+            .section-checkout { order: 2; }
+            .section-auto { order: 3; }
+            .section-main { order: 4; }
         }
 
         @media (min-width: 1025px) {
@@ -630,6 +631,7 @@
             .section-auto { order: 1; }
             .section-main { order: 2; }
             .section-lp { order: 3; }
+            .section-checkout { order: 4; }
 
             body.online-mode .section-container {
                 background: rgba(241, 245, 249, 0.85);
@@ -1234,6 +1236,13 @@
                 <!-- Cards serão renderizados via JavaScript -->
             </div>
         </div>
+
+        <div class="section-container section-checkout">
+            <h2 class="section-title">Checkouts</h2>
+            <div class="cards-grid" id="checkout-cards-container">
+                <!-- Cards serão renderizados via JavaScript -->
+            </div>
+        </div>
     </div>
     <script>
         // Dados dos projetos
@@ -1471,6 +1480,84 @@
                 delay: "0.3s",
                 type: "type-online",
                 section: "main"
+            },
+            // Checkouts
+            {
+                id: 101,
+                title: "Mentoria",
+                desc: "Link de checkout para Mentoria.",
+                icon: "🤝",
+                offlineUrl: "https://pay.kiwify.com.br/ZMMBdqU",
+                onlineUrl: "https://pay.kiwify.com.br/ZMMBdqU",
+                delay: "0.1s",
+                type: "type-online",
+                section: "checkout"
+            },
+            {
+                id: 102,
+                title: "Caxias Lote 2",
+                desc: "Link de checkout para Caxias Lote 2.",
+                icon: "🍇",
+                offlineUrl: "https://pay.kiwify.com.br/xzlLFQN",
+                onlineUrl: "https://pay.kiwify.com.br/xzlLFQN",
+                delay: "0.2s",
+                type: "type-presencial",
+                section: "checkout"
+            },
+            {
+                id: 103,
+                title: "Caxias 1 Encontro",
+                desc: "Link de checkout para Caxias 1 Encontro.",
+                icon: "📅",
+                offlineUrl: "https://pay.kiwify.com.br/1M0Hj9T",
+                onlineUrl: "https://pay.kiwify.com.br/1M0Hj9T",
+                delay: "0.3s",
+                type: "type-presencial",
+                section: "checkout"
+            },
+            {
+                id: 104,
+                title: "Formação Anual",
+                desc: "Link de checkout para Formação Anual.",
+                icon: "🎓",
+                offlineUrl: "https://pay.kiwify.com.br/mxIXLJn",
+                onlineUrl: "https://pay.kiwify.com.br/mxIXLJn",
+                delay: "0.4s",
+                type: "type-online",
+                section: "checkout"
+            },
+            {
+                id: 105,
+                title: "Formação Vitalício",
+                desc: "Link de checkout para Formação Vitalício.",
+                icon: "♾️",
+                offlineUrl: "https://pay.kiwify.com.br/9sUYGo2",
+                onlineUrl: "https://pay.kiwify.com.br/9sUYGo2",
+                delay: "0.5s",
+                type: "type-online",
+                section: "checkout"
+            },
+            {
+                id: 106,
+                title: "Master Thai",
+                desc: "Link de checkout para Master Thai.",
+                icon: "🏆",
+                offlineUrl: "https://pay.kiwify.com.br/itgl74b",
+                onlineUrl: "https://pay.kiwify.com.br/itgl74b",
+                delay: "0.6s",
+                type: "type-tools",
+                section: "checkout"
+            },
+            {
+                id: 107,
+                title: "Quicky Thai Massage",
+                desc: "Link de checkout para Quicky Thai Massage.",
+                icon: "⚡",
+                offlineUrl: "https://pay.kiwify.com.br/AgyxR1V",
+                onlineUrl: "https://pay.kiwify.com.br/AgyxR1V",
+                delay: "0.7s",
+                type: "type-tools",
+                section: "checkout"
             }
         ];
 
@@ -1478,6 +1565,7 @@
         const mainContainer = document.getElementById('main-cards-container');
         const lpContainer = document.getElementById('lp-cards-container');
         const autoContainer = document.getElementById('auto-cards-container');
+        const checkoutContainer = document.getElementById('checkout-cards-container');
         const labelOffline = document.getElementById('label-offline');
         const labelOnline = document.getElementById('label-online');
         
@@ -1494,7 +1582,7 @@
             card.target = "_blank"; 
 
             let copyButtonHtml = '';
-            if (proj.section === 'lp') {
+            if (proj.section === 'lp' || proj.section === 'checkout') {
                 copyButtonHtml = `
                     <button class="copy-btn" title="Copiar URL destino" onclick="copyToClipboard(event, '${currentUrl}', this)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; vertical-align: middle;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
@@ -1516,6 +1604,7 @@
             mainContainer.innerHTML = '';
             lpContainer.innerHTML = '';
             autoContainer.innerHTML = '';
+            checkoutContainer.innerHTML = '';
             
             projects.forEach(proj => {
                 const card = createCard(proj);
@@ -1523,6 +1612,8 @@
                     lpContainer.appendChild(card);
                 } else if (proj.section === 'auto') {
                     autoContainer.appendChild(card);
+                } else if (proj.section === 'checkout') {
+                    checkoutContainer.appendChild(card);
                 } else {
                     mainContainer.appendChild(card);
                 }
@@ -1546,11 +1637,13 @@
             mainContainer.style.opacity = 0;
             lpContainer.style.opacity = 0;
             autoContainer.style.opacity = 0;
+            checkoutContainer.style.opacity = 0;
             setTimeout(() => {
                 renderCards();
                 mainContainer.style.opacity = 1;
                 lpContainer.style.opacity = 1;
                 autoContainer.style.opacity = 1;
+                checkoutContainer.style.opacity = 1;
             }, 300);
         });
 
@@ -1558,6 +1651,7 @@
         mainContainer.style.transition = 'opacity 0.3s ease';
         lpContainer.style.transition = 'opacity 0.3s ease';
         autoContainer.style.transition = 'opacity 0.3s ease';
+        checkoutContainer.style.transition = 'opacity 0.3s ease';
 
         // Função global para copiar URL
         function copyToClipboard(event, url, btn) {
