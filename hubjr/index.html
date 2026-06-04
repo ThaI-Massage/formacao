@@ -8,33 +8,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Modo Offline (Dark/Neon) */
-            --bg-color: #0f172a;
-            --bg-gradient: radial-gradient(circle at 15% 50%, rgba(30, 41, 59, 1), rgba(15, 23, 42, 1));
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --card-border: rgba(51, 65, 85, 0.5);
-            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            /* Modo Offline (Dark/Neon) - Contraste Otimizado */
+            --bg-color: #0c111d;
+            --bg-gradient: radial-gradient(circle at 15% 50%, #1e293b, #0c111d);
+            --text-main: #ffffff;
+            --text-muted: #cbd5e1;
+            --card-bg: rgba(30, 41, 59, 0.85);
+            --card-border: rgba(148, 163, 184, 0.4);
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             --accent: #3b82f6;
-            --accent-hover: #2563eb;
-            --accent-glow: rgba(59, 130, 246, 0.5);
-            --status-color: #f59e0b; /* Laranja para offline */
+            --accent-hover: #60a5fa;
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --status-color: #fbbf24;
         }
 
         body.online-mode {
-            /* Modo Online (Light/Vibrant Glass) */
-            --bg-color: #f0fdf4;
-            --bg-gradient: radial-gradient(circle at 85% 50%, #dcfce7, #f0fdf4);
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --card-bg: rgba(255, 255, 255, 0.7);
-            --card-border: rgba(255, 255, 255, 0.4);
-            --card-shadow: 0 8px 32px rgba(34, 197, 94, 0.15);
-            --accent: #10b981;
-            --accent-hover: #059669;
-            --accent-glow: rgba(16, 185, 129, 0.4);
-            --status-color: #10b981; /* Verde para online */
+            /* Modo Online (Light/Vibrant) - Contraste Otimizado */
+            --bg-color: #ffffff;
+            --bg-gradient: none;
+            --text-main: #000000;
+            --text-muted: #1e293b;
+            --card-bg: #f8fafc;
+            --card-border: #64748b;
+            --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --accent: #047857;
+            --accent-hover: #065f46;
+            --accent-glow: rgba(4, 120, 87, 0.2);
+            --status-color: #047857;
+        }
+
+        /* Modo Alto Contraste para Deficiência Visual */
+        body.high-contrast, html.high-contrast-root body {
+            --bg-color: #000000 !important;
+            --bg-gradient: none !important;
+            --text-main: #ffff00 !important; /* Amarelo no Preto */
+            --text-muted: #ffffff !important; /* Branco no Preto */
+            --card-bg: #000000 !important;
+            --card-border: #ffffff !important;
+            --card-shadow: none !important;
+            --accent: #ffff00 !important;
+            --accent-hover: #ffffff !important;
+            --accent-glow: none !important;
+            --status-color: #ffff00 !important;
         }
 
         * {
@@ -42,7 +57,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         body {
@@ -53,8 +68,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 80px 20px 40px;
+            padding: 90px 20px 40px;
             overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* Efeito de background animado */
@@ -69,11 +85,15 @@
             pointer-events: none;
         }
 
+        body.high-contrast .bg-shapes, html.high-contrast-root .bg-shapes {
+            display: none !important;
+        }
+
         .shape {
             position: absolute;
             border-radius: 50%;
             filter: blur(80px);
-            opacity: 0.5;
+            opacity: 0.4;
             transition: all 1s ease;
         }
 
@@ -105,22 +125,22 @@
         }
 
         .mode-label {
-            font-size: 0.75rem;
-            font-weight: 500;
+            font-size: 0.85rem;
+            font-weight: 600;
             color: var(--text-muted);
             transition: color 0.3s;
         }
 
         .mode-label.active {
             color: var(--text-main);
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .switch {
             position: relative;
             display: inline-block;
-            width: 42px;
-            height: 22px;
+            width: 46px;
+            height: 24px;
         }
 
         .switch input {
@@ -137,9 +157,9 @@
             right: 0;
             bottom: 0;
             background-color: rgba(255,255,255,0.1);
-            border: 1px solid var(--card-border);
+            border: 2px solid var(--card-border);
             transition: .4s;
-            border-radius: 22px;
+            border-radius: 24px;
             overflow: hidden;
         }
 
@@ -148,7 +168,7 @@
             content: "";
             height: 16px;
             width: 16px;
-            left: 2px;
+            left: 3px;
             bottom: 2px;
             background-color: var(--status-color);
             transition: .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -158,15 +178,73 @@
         }
 
         input:checked + .slider {
-            background-color: rgba(0,0,0,0.05);
+            background-color: rgba(0,0,0,0.1);
         }
 
         input:checked + .slider:before {
-            transform: translateX(20px);
+            transform: translateX(22px);
             background-color: var(--status-color);
             box-shadow: 0 0 6px var(--status-color);
         }
 
+        /* Barra de Acessibilidade */
+        .accessibility-bar {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            padding: 6px 12px;
+            border-radius: 50px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: var(--card-shadow);
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .accessibility-bar:hover {
+            box-shadow: 0 4px 20px var(--accent-glow);
+            border-color: var(--accent);
+        }
+
+        .accessibility-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .accessibility-btn:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .accessibility-btn.contrast-toggle {
+            width: auto;
+            border-radius: 20px;
+            padding: 0 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            gap: 6px;
+        }
+
+        /* Layout & Containers */
         .section-container {
             width: 100%;
             max-width: 1600px;
@@ -177,8 +255,8 @@
         }
 
         .section-title {
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.4rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text-muted);
@@ -194,15 +272,15 @@
             bottom: -6px;
             left: 50%;
             transform: translateX(-50%);
-            width: 30px;
-            height: 2px;
+            width: 40px;
+            height: 3px;
             background: var(--accent);
             border-radius: 2px;
             transition: width 0.3s ease, background-color 0.3s ease;
         }
 
         .section-container:hover .section-title::after {
-            width: 60px;
+            width: 80px;
         }
 
         .cards-grid {
@@ -216,9 +294,9 @@
 
         .card {
             background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            border: 2px solid var(--card-border);
             border-radius: 16px;
-            padding: 16px 10px;
+            padding: 18px 14px;
             -webkit-backdrop-filter: blur(16px);
             backdrop-filter: blur(16px);
             box-shadow: var(--card-shadow);
@@ -237,39 +315,57 @@
             flex: 1 1 280px;
             max-width: 320px;
             min-width: 220px;
+            min-height: 220px;
+            justify-content: flex-start;
         }
 
         .card.type-online {
-            border-color: rgba(59, 130, 246, 0.5);
+            border-color: rgba(59, 130, 246, 0.7);
             --accent: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.5);
+            --accent-glow: rgba(59, 130, 246, 0.4);
+        }
+
+        body.online-mode .card.type-online {
+            border-color: #2563eb;
         }
 
         .card.type-presencial {
-            border-color: rgba(16, 185, 129, 0.5);
+            border-color: rgba(16, 185, 129, 0.7);
             --accent: #10b981;
-            --accent-glow: rgba(16, 185, 129, 0.5);
+            --accent-glow: rgba(16, 185, 129, 0.4);
+        }
+
+        body.online-mode .card.type-presencial {
+            border-color: #059669;
         }
 
         .card.type-tools {
-            border-color: rgba(245, 158, 11, 0.5);
+            border-color: rgba(245, 158, 11, 0.7);
             --accent: #f59e0b;
-            --accent-glow: rgba(245, 158, 11, 0.5);
+            --accent-glow: rgba(245, 158, 11, 0.4);
+        }
+
+        body.online-mode .card.type-tools {
+            border-color: #d97706;
         }
 
         .card.type-automation {
-            border-color: rgba(168, 85, 247, 0.5);
+            border-color: rgba(168, 85, 247, 0.7);
             --accent: #a855f7;
-            --accent-glow: rgba(168, 85, 247, 0.5);
+            --accent-glow: rgba(168, 85, 247, 0.4);
+        }
+
+        body.online-mode .card.type-automation {
+            border-color: #7c3aed;
         }
 
         .card:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 12px 40px var(--accent-glow);
-            border-color: var(--accent);
+            border-color: var(--accent) !important;
         }
 
-        /* Efeito de brilho ao passar o mouse */
+        /* Efeito de brilho */
         .card::after {
             content: '';
             position: absolute;
@@ -277,9 +373,13 @@
             left: -100%;
             width: 50%;
             height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
             transform: skewX(-25deg);
             transition: 0.5s;
+        }
+
+        body.high-contrast .card::after, html.high-contrast-root .card::after {
+            display: none !important;
         }
 
         .card:hover::after {
@@ -288,14 +388,19 @@
         }
 
         .card-icon {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            background: var(--card-bg);
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            background: rgba(0, 0, 0, 0.15);
             padding: 8px;
             border-radius: 12px;
-            border: 1px solid var(--card-border);
+            border: 2px solid var(--card-border);
             box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .card:hover .card-icon {
@@ -303,23 +408,33 @@
         }
 
         .card-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 6px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
             line-height: 1.3;
+            color: var(--text-main);
         }
 
+        .card-desc {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-top: 4px;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            text-align: center;
+        }
 
         /* Botão de Copiar URL */
         .copy-btn {
-            margin-top: 8px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--card-border);
-            color: var(--text-muted);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.65rem;
-            font-weight: 500;
+            margin-top: auto; /* Empurra para o fundo do cartão */
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid var(--card-border);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
@@ -327,12 +442,19 @@
             transition: all 0.25s ease;
             z-index: 10;
             position: relative;
+            width: 100%;
+        }
+
+        body.online-mode .copy-btn {
+            background: #ffffff;
+            color: var(--text-main);
+            border-color: #cbd5e1;
         }
 
         .copy-btn:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #ffffff;
+            background: var(--accent) !important;
+            border-color: var(--accent) !important;
+            color: #ffffff !important;
             box-shadow: 0 0 12px var(--accent-glow);
             transform: translateY(-1px);
         }
@@ -352,23 +474,16 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(var(--status-color), 0.7); }
-            70% { box-shadow: 0 0 0 6px rgba(var(--status-color), 0); }
-            100% { box-shadow: 0 0 0 0 rgba(var(--status-color), 0); }
-        }
-
         /* Admin Toolbar */
         .admin-toolbar {
             position: fixed;
             top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 20px; /* Alinhado à esquerda para não sobrepor acessibilidade à direita */
             display: flex;
             align-items: center;
             gap: 10px;
             background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            border: 2px solid var(--card-border);
             padding: 8px 20px;
             border-radius: 50px;
             -webkit-backdrop-filter: blur(16px);
@@ -386,7 +501,7 @@
         }
 
         .toolbar-divider {
-            width: 1px;
+            width: 2px;
             height: 20px;
             background: var(--card-border);
             margin: 0 4px;
@@ -398,48 +513,74 @@
             gap: 6px;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-size: 0.9rem;
+            font-weight: 700;
             padding: 6px 12px;
             border-radius: 20px;
             transition: all 0.3s ease;
         }
 
         .toolbar-link:hover {
-            background: rgba(128, 128, 128, 0.1);
+            background: rgba(128, 128, 128, 0.15);
             color: var(--accent);
             transform: translateY(-1px);
         }
 
         .toolbar-link i,
         .toolbar-icon {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             object-fit: contain;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* Responsividade */
+        /* Responsividade Mobile e Tablet */
         @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .cards-grid { grid-template-columns: 1fr; }
-            .admin-toolbar { 
-                top: 10px;
-                bottom: auto;
-                font-size: 0.75rem;
-                padding: 6px 10px;
-                gap: 4px;
-                max-width: 95vw;
-                overflow-x: auto;
-                justify-content: flex-start;
+            h1 { font-size: 2rem; }
+            .sections-wrapper {
+                margin-top: 110px;
             }
-            .toolbar-link { padding: 4px 6px; }
-            body { padding-top: 100px; padding-bottom: 40px; }
+            .admin-toolbar { 
+                top: 5px;
+                left: 10px;
+                transform: none;
+                width: calc(100% - 20px);
+                max-width: none;
+                font-size: 0.8rem;
+                padding: 4px 8px;
+                gap: 4px;
+                border-radius: 8px;
+                overflow-x: auto;
+            }
+            .accessibility-bar {
+                position: fixed;
+                top: 52px;
+                left: 10px;
+                right: 10px;
+                width: calc(100% - 20px);
+                justify-content: center;
+                border-radius: 8px;
+                padding: 4px 8px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            }
+            body { 
+                padding-top: 110px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .cards-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                width: 100%;
+                max-width: 100%;
+            }
         }
 
-        /* Layout principal para desktop - Tudo em uma única tela sem rolagem */
+        /* Layout Desktop Lado a Lado Flexível */
         .sections-wrapper {
             display: flex;
             flex-direction: column;
@@ -448,27 +589,21 @@
             gap: 20px;
         }
 
-
         @media (max-width: 1024px) {
-            .section-lp {
-                order: 1;
-            }
-            .section-auto {
-                order: 2;
-            }
-            .section-main {
-                order: 3;
-            }
+            .section-lp { order: 1; }
+            .section-auto { order: 2; }
+            .section-main { order: 3; }
         }
 
         @media (min-width: 1025px) {
             body {
-                padding: 70px 20px 20px;
-                height: 100vh;
+                padding: 95px 20px 20px;
+                height: auto;
+                min-height: 100vh;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
-                overflow: hidden;
+                justify-content: flex-start;
+                overflow-y: auto;
             }
 
             .sections-wrapper {
@@ -476,68 +611,48 @@
                 justify-content: center;
                 align-items: stretch;
                 margin-top: 10px;
-                height: calc(100vh - 110px);
+                height: auto;
+                min-height: calc(100vh - 140px);
             }
 
             .section-container {
                 flex: 1;
                 margin-bottom: 0;
-                background: rgba(30, 41, 59, 0.25);
-                border: 1px solid rgba(255, 255, 255, 0.03);
+                background: rgba(30, 41, 59, 0.35);
+                border: 2px solid rgba(255, 255, 255, 0.05);
                 border-radius: 20px;
-                padding: 16px 12px;
+                padding: 20px 16px;
                 display: flex;
                 flex-direction: column;
-                height: 100%;
+                height: auto;
             }
 
-            .section-auto {
-                order: 1;
-            }
-
-            .section-main {
-                order: 2;
-            }
-
-            .section-lp {
-                order: 3;
-            }
+            .section-auto { order: 1; }
+            .section-main { order: 2; }
+            .section-lp { order: 3; }
 
             body.online-mode .section-container {
-                background: rgba(255, 255, 255, 0.25);
-                border-color: rgba(0, 0, 0, 0.02);
+                background: rgba(241, 245, 249, 0.85);
+                border-color: #cbd5e1;
             }
 
             .section-title {
-                font-size: 1.05rem;
-                margin-bottom: 16px;
+                font-size: 1.25rem;
+                margin-bottom: 20px;
             }
 
             .cards-grid {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
-                grid-auto-rows: minmax(90px, 1fr);
-                gap: 10px;
+                grid-auto-rows: auto;
+                gap: 12px;
                 width: 100%;
-                height: calc(100% - 35px);
                 justify-content: stretch;
                 align-content: start;
             }
 
-            /* Automação has 6 cards. Grid can fit them nicely. */
-            #auto-cards-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            /* Dashboard has 1 card. Center it or let it take full width of column. */
             #main-cards-container {
                 grid-template-columns: 1fr;
-                grid-auto-rows: 110px;
-            }
-
-            /* Landing pages has 4 cards. 2x2 grid fits perfectly. */
-            #lp-cards-container {
-                grid-template-columns: repeat(2, 1fr);
             }
 
             .card {
@@ -545,49 +660,50 @@
                 max-width: none;
                 min-width: 0;
                 width: 100%;
-                height: 100%;
-                padding: 10px 8px;
-                justify-content: center;
+                height: auto;
+                min-height: 100%;
+                padding: 14px 10px;
+                justify-content: flex-start;
             }
 
             .card-icon {
-                font-size: 1.5rem;
-                margin-bottom: 4px;
+                font-size: 2.2rem;
+                margin-bottom: 6px;
             }
 
             .card-title {
-                font-size: 0.85rem;
-                margin-bottom: 2px;
+                font-size: 1.05rem;
+                margin-bottom: 4px;
             }
-
         }
 
         /* Calculador de ROI */
         .roi-panel {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px solid var(--card-border);
             border-radius: 12px;
-            padding: 14px;
-            margin-top: 14px;
+            padding: 16px;
+            margin-top: 16px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
             flex-grow: 1;
             justify-content: center;
         }
         
         body.online-mode .roi-panel {
-            background: rgba(0, 0, 0, 0.02);
+            background: #ffffff;
+            border-color: #cbd5e1;
         }
         
         .roi-title {
-            font-size: 0.9rem;
-            font-weight: 700;
+            font-size: 1.05rem;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--text-main);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             text-align: center;
         }
         
@@ -598,72 +714,74 @@
         .roi-row label {
             display: flex;
             justify-content: space-between;
-            font-size: 0.75rem;
-            font-weight: 600;
+            font-size: 0.85rem;
+            font-weight: 700;
             color: var(--text-muted);
             margin-bottom: 4px;
         }
         
         .roi-row label span.val-display {
             color: var(--accent);
-            font-weight: 700;
+            font-weight: 800;
         }
         
         .roi-inputs input[type="range"] {
             -webkit-appearance: none;
             width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
             outline: none;
         }
         
         body.online-mode .roi-inputs input[type="range"] {
-            background: rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.15);
         }
         
         .roi-inputs input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             background: var(--accent);
             cursor: pointer;
             box-shadow: 0 0 6px var(--accent-glow);
             transition: transform 0.1s;
+            border: 1px solid var(--text-main);
         }
         
         .roi-inputs input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
+            transform: scale(1.25);
         }
         
         .roi-results {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 10px;
             margin-top: 6px;
         }
         
         .roi-res-card {
             background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            border: 2px solid var(--card-border);
             border-radius: 8px;
-            padding: 8px;
+            padding: 10px;
             text-align: center;
             box-shadow: var(--card-shadow);
         }
         
         .roi-res-label {
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-muted);
             margin-bottom: 2px;
+            font-weight: 700;
         }
         
         .roi-res-value {
-            font-size: 1.05rem;
-            font-weight: 700;
+            font-size: 1.25rem;
+            font-weight: 800;
             color: var(--text-main);
         }
         
@@ -674,7 +792,139 @@
         .roi-res-value.negative {
             color: #ef4444 !important;
         }
+
+        /* Alto Contraste Específico para ROI e Controles */
+        body.high-contrast, html.high-contrast-root body {
+            --bg-color: #000000 !important;
+            --bg-gradient: none !important;
+            --text-main: #ffff00 !important;
+            --text-muted: #ffffff !important;
+            --card-bg: #000000 !important;
+            --card-border: #ffffff !important;
+            --card-shadow: none !important;
+            --accent: #ffff00 !important;
+            --accent-hover: #ffffff !important;
+            --accent-glow: none !important;
+            --status-color: #ffff00 !important;
+        }
+
+        body.high-contrast .card {
+            border: 3px solid #ffffff !important;
+            background: #000000 !important;
+            box-shadow: none !important;
+        }
+
+        body.high-contrast .card:hover {
+            border-color: #ffff00 !important;
+            background: #111111 !important;
+        }
+
+        body.high-contrast .card-icon {
+            font-size: 2.2rem !important;
+            background: #000000 !important;
+            border: 2px solid #ffffff !important;
+            color: #ffff00 !important;
+        }
+
+        body.high-contrast .copy-btn {
+            background: #000000 !important;
+            border: 2px solid #ffffff !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+        }
+
+        body.high-contrast .copy-btn:hover {
+            background: #ffff00 !important;
+            color: #000000 !important;
+            border-color: #ffff00 !important;
+        }
+
+        body.high-contrast .admin-toolbar {
+            background: #000000 !important;
+            border: 3px solid #ffffff !important;
+            box-shadow: none !important;
+        }
+
+        body.high-contrast .toolbar-link {
+            color: #ffffff !important;
+        }
+
+        body.high-contrast .toolbar-link:hover {
+            background: #222222 !important;
+            color: #ffff00 !important;
+            border: 1px solid #ffff00 !important;
+        }
+
+        body.high-contrast .roi-panel {
+            background: #000000 !important;
+            border: 3px solid #ffffff !important;
+        }
+
+        body.high-contrast .roi-res-card {
+            background: #000000 !important;
+            border: 2px solid #ffffff !important;
+        }
+
+        body.high-contrast .roi-res-value {
+            color: #ffff00 !important;
+        }
+        
+        body.high-contrast .roi-res-value.positive {
+            color: #00ff00 !important;
+        }
+        
+        body.high-contrast .roi-res-value.negative {
+            color: #ff0000 !important;
+        }
+
+        body.high-contrast .accessibility-btn {
+            background: #000000 !important;
+            color: #ffffff !important;
+            border-color: #ffffff !important;
+        }
+        
+        body.high-contrast .accessibility-btn:hover {
+            background: #ffff00 !important;
+            color: #000000 !important;
+            border-color: #ffff00 !important;
+        }
+
+        body.high-contrast .accessibility-btn.contrast-toggle {
+            background: #ffff00 !important;
+            color: #000000 !important;
+            border-color: #ffff00 !important;
+        }
+        
+        body.high-contrast input[type="range"]::-webkit-slider-thumb {
+            background: #ffff00 !important;
+            border: 2px solid #ffffff !important;
+        }
+        
+        body.high-contrast .slider:before {
+            background-color: #ffff00 !important;
+            box-shadow: 0 0 6px #ffff00 !important;
+        }
+        
+        body.high-contrast .slider {
+            border: 2px solid #ffffff !important;
+        }
+
+        body.high-contrast .card-desc {
+            color: #ffffff !important;
+            font-weight: 700 !important;
+        }
     </style>
+    <script>
+        // Aplicar configurações de acessibilidade antes do render para evitar flash de tela
+        (function() {
+            const fontSizePercent = localStorage.getItem('hubjr-font-size') || 100;
+            const isHighContrast = localStorage.getItem('hubjr-high-contrast') === 'true';
+            document.documentElement.style.fontSize = fontSizePercent + '%';
+            if (isHighContrast) {
+                document.documentElement.classList.add('high-contrast-root');
+            }
+        })();
+    </script>
 </head>
 <body class="online-mode">
 
@@ -717,6 +967,16 @@
             <span class="mode-label active" id="label-online">On-line</span>
         </div>
     </nav>
+
+    <div class="accessibility-bar" aria-label="Controle de Acessibilidade">
+        <span style="font-size: 1.2rem; margin-right: 4px;" title="Acessibilidade">♿</span>
+        <button class="accessibility-btn" onclick="adjustFontSize(10)" title="Aumentar Texto" aria-label="Aumentar Texto">A+</button>
+        <button class="accessibility-btn" onclick="adjustFontSize(-10)" title="Diminuir Texto" aria-label="Diminuir Texto">A-</button>
+        <button class="accessibility-btn" onclick="adjustFontSize(0)" title="Restaurar Texto" aria-label="Restaurar Texto">A</button>
+        <button class="accessibility-btn contrast-toggle" onclick="toggleHighContrast()" title="Alternar Alto Contraste" aria-label="Alternar Alto Contraste">
+            <span>👁️ Alto Contraste</span>
+        </button>
+    </div>
     <script>
         // Status do bot (WhatsApp Evolution) — atualiza a cada 30s
         async function updateBotStatus() {
@@ -1083,6 +1343,7 @@
             card.innerHTML = `
                 <div class="card-icon">${proj.icon}</div>
                 <h2 class="card-title">${proj.title}</h2>
+                <p class="card-desc">${proj.desc || ''}</p>
                 ${copyButtonHtml}
             `;
             return card;
@@ -1220,7 +1481,40 @@
             roiAdsEl.addEventListener('input', calculateRoi);
         }
 
+        // Lógica de Acessibilidade (Tamanho da Fonte e Alto Contraste)
+        let fontSizePercent = parseInt(localStorage.getItem('hubjr-font-size')) || 100;
+        let isHighContrast = localStorage.getItem('hubjr-high-contrast') === 'true';
+
+        function applyAccessibility() {
+            document.documentElement.style.fontSize = fontSizePercent + '%';
+            
+            if (isHighContrast) {
+                document.body.classList.add('high-contrast');
+                document.documentElement.classList.add('high-contrast-root');
+            } else {
+                document.body.classList.remove('high-contrast');
+                document.documentElement.classList.remove('high-contrast-root');
+            }
+        }
+
+        function adjustFontSize(change) {
+            if (change === 0) {
+                fontSizePercent = 100;
+            } else {
+                fontSizePercent = Math.max(80, Math.min(220, fontSizePercent + change));
+            }
+            localStorage.setItem('hubjr-font-size', fontSizePercent);
+            applyAccessibility();
+        }
+
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            localStorage.setItem('hubjr-high-contrast', isHighContrast);
+            applyAccessibility();
+        }
+
         // Inicialização
+        applyAccessibility();
         renderCards();
         calculateRoi();
     </script>
