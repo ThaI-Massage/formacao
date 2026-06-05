@@ -1,0 +1,6 @@
+# Cabeçalhos de cache para Cloudflare Pages
+/*
+  Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+
+/images/*
+  Cache-Control: max-age=31536000, public, immutable

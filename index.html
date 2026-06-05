@@ -8,9 +8,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style"
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap">
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap">
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap">
+    </noscript>
     <link rel="preconnect" href="https://www.google-analytics.com">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -43,9 +47,9 @@
             window.removeEventListener('mousemove', loadTracking);
             window.removeEventListener('touchstart', loadTracking);
         }
-        window.addEventListener('scroll', loadTracking);
-        window.addEventListener('mousemove', loadTracking);
-        window.addEventListener('touchstart', loadTracking);
+        window.addEventListener('scroll', loadTracking, { passive: true });
+        window.addEventListener('mousemove', loadTracking, { passive: true });
+        window.addEventListener('touchstart', loadTracking, { passive: true });
     </script>
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=915022613519555&ev=PageView&noscript=1" alt="Meta Pixel" /></noscript>
@@ -61,8 +65,12 @@
     <title>Formação Completa em Thai Massage | Arnoldo Benkenstein</title>
     <link rel="canonical" href="https://formacaocompleta.massagemthai.com.br/">
     <link rel="icon" type="image/png" href="./images/favicon-thai-massage.webp">
-    <link rel="preload" as="image" href="./images/curso-thai-massage-hero.webp">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="preload" as="image" href="./images/curso-thai-massage-hero.webp" fetchpriority="high">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'" />
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    </noscript>
     <style>
         *,
         *::before,
@@ -1608,7 +1616,7 @@
                     </div>
                 </div>
                 <div class="hero-img-wrapper">
-                    <div class="hero-img-frame"><img src="./images/curso-thai-massage-hero.webp"
+                    <div class="hero-img-frame"><img src="./images/curso-thai-massage-hero.webp" fetchpriority="high"
                             alt="Arnoldo Benkenstein demonstrando Thai Massage - Curso de Massagem Tailandesa"
                             width="800" height="1000"></div>
                     <div class="hero-quote">
@@ -1897,8 +1905,8 @@
                     </ul>
                 </div>
                 <div class="reveal" style="transition-delay:0.2s">
-                    <div class="cert-img"><img src="./images/THAI_MASSAGE_certificado.png"
-                            srcset="./images/certificado-formacao-thai-massage.webp 1x, ./images/THAI_MASSAGE_certificado.png 2x"
+                    <div class="cert-img"><img src="./images/THAI_MASSAGE_certificado.webp"
+                            srcset="./images/certificado-formacao-thai-massage.webp 1x, ./images/THAI_MASSAGE_certificado.webp 2x"
                             alt="Certificado de Formação Profissional em Thai Massage de 32h" loading="lazy"></div>
                 </div>
             </div>
@@ -1914,6 +1922,7 @@
             <div class="video-testimonial reveal">
                 <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/iufNsa8hscg"
                         title="Depoimento Aluno Arnoldo Benkenstein"
+                        loading="lazy"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe></div>
             </div>
