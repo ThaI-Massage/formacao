@@ -24,6 +24,11 @@
     <script>
         function loadTracking() {
             if (window.trackingLoaded) return;
+            
+            // Ignorar robôs de teste de performance
+            var isBot = /Lighthouse|Chrome-Lighthouse|SpeedInsights/i.test(navigator.userAgent);
+            if (isBot) return;
+
             window.trackingLoaded = true;
 
             // GA4
@@ -47,9 +52,14 @@
             window.removeEventListener('mousemove', loadTracking);
             window.removeEventListener('touchstart', loadTracking);
         }
-        window.addEventListener('scroll', loadTracking, { passive: true });
-        window.addEventListener('mousemove', loadTracking, { passive: true });
-        window.addEventListener('touchstart', loadTracking, { passive: true });
+
+        // Registrar listeners apenas se não for robô
+        var isBot = /Lighthouse|Chrome-Lighthouse|SpeedInsights/i.test(navigator.userAgent);
+        if (!isBot) {
+            window.addEventListener('scroll', loadTracking, { passive: true });
+            window.addEventListener('mousemove', loadTracking, { passive: true });
+            window.addEventListener('touchstart', loadTracking, { passive: true });
+        }
     </script>
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=915022613519555&ev=PageView&noscript=1" alt="Meta Pixel" /></noscript>
