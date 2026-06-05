@@ -1226,6 +1226,13 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        .hero-img-mobile {
+            display: none;
+        }
+        .hero-img-desktop {
+            display: block;
+        }
+
         /* ── Divider ── */
         .neon-divider {
             height: 1px;
@@ -1239,6 +1246,15 @@
             :root {
                 --radius-lg: 20px;
                 --radius-md: 16px;
+            }
+
+            .hero-img-mobile {
+                display: block;
+                margin: 24px auto 48px auto;
+                max-width: 450px;
+            }
+            .hero-img-desktop {
+                display: none;
             }
 
             .container {
@@ -1474,6 +1490,15 @@
                 <div>
                     <div class="hero-badge"><span class="dot"></span> Curso Online — Acesso Imediato</div>
                     <h1>Do Zero ao Atendimento <span class="gradient-text">High-Ticket</span> com <span class="gradient-text">Thai Massage</span></h1>
+                    <div class="hero-img-wrapper hero-img-mobile" style="margin-bottom: 48px;">
+                        <div class="hero-img-frame">
+                            <img src="images/thai_massage_hero_parte%20superior_da%20_pagina.webp" alt="Thai Massage">
+                        </div>
+                        <div class="hero-quote">
+                            <p>"Não é esforço, é suavidade e fluidez."</p>
+                            <span>— Arnoldo Benkenstein</span>
+                        </div>
+                    </div>
                     <p>A formação online <strong>mais completa do Brasil</strong> em Massagem Tradicional Tailandesa.
                         <strong>Mais de 420 manobras</strong> detalhadas, do fundamento teórico à prática clínica
                         avançada.
@@ -1487,7 +1512,7 @@
                         <div class="hero-stat"><strong>+7.000h</strong><span>Atendimentos</span></div>
                     </div>
                 </div>
-                <div class="hero-img-wrapper">
+                <div class="hero-img-wrapper hero-img-desktop">
                     <div class="hero-img-frame">
                         <img src="images/thai_massage_hero_parte%20superior_da%20_pagina.webp" alt="Thai Massage">
                     </div>
