@@ -1,0 +1,39 @@
+/* ===========================================================================
+   TEMA "TERRA" — a mesma página de venda, em barro, oliva e areia
+   ---------------------------------------------------------------------------
+   Mais quente e mais artesanal que a original, com título em serifa de
+   personalidade (Fraunces). Só cores e letra: a estrutura é a mesma.
+   =========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&display=swap');
+
+:root {
+  --bg-body: #f6efe4;
+  --bg-card: #fffdf9;
+  --bg-card-hover: #f4ebdd;
+  --primary: #a2542f;          /* barro queimado */
+  --secondary: #6f7f4b;        /* oliva: o botão vira verde */
+  --accent: #b98b57;
+  --text-main: #2c2620;
+  --text-secondary: #6b6055;
+  --text-muted: #a2968a;
+  --white: #fffdf9;
+  --text-primary: #2c2620;
+  --shadow-soft: 0 12px 34px rgba(110, 78, 47, .12);
+  --font-accent: 'Fraunces', Georgia, serif;
+  --radius-lg: 26px;
+  --radius-md: 16px;
+}
+
+.navbar { background: rgba(246, 239, 228, .92) !important; border-bottom: 1px solid rgba(110, 78, 47, .12) !important; }
+.glass { border-color: rgba(110, 78, 47, .1) !important; }
+.neon-divider { background: rgba(110, 78, 47, .12) !important; }
+
+.cta-btn:hover { background: #5d6b3e !important; }
+.cta-btn-secondary:hover { background: rgba(162, 84, 47, .07) !important; }
+
+.sim-slider { background: rgba(162, 84, 47, .14) !important; }
+.sim-payback-box { background: rgba(111, 127, 75, .1) !important; border-color: var(--secondary) !important; }
+
+/* a serifa nova pede um pouco mais de ar entre as linhas do título */
+.section-title, h1, h2 { letter-spacing: -.01em; }

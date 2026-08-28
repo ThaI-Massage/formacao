@@ -1,0 +1,46 @@
+/* ===========================================================================
+   TEMA "NOITE" — a mesma página de venda, em fundo escuro
+   ---------------------------------------------------------------------------
+   Não muda uma linha da estrutura: só troca as cores que a página já usa
+   por variável. Serve para qualquer versão futura da página.
+   Carregado pela página do curso online (Semeador) e pela prévia em
+   /modelos/noite/.
+   =========================================================================== */
+
+:root {
+  --bg-body: #12161a;
+  --bg-card: #1b2126;
+  --bg-card-hover: #232b31;
+  --primary: #8fbf6f;          /* verde folha, claro o bastante pro escuro */
+  --secondary: #d9a441;        /* dourado quente: é ele que puxa o clique */
+  --accent: #7f9c8d;
+  --text-main: #eef2ee;
+  --text-secondary: #b1bcb4;
+  --text-muted: #7c8a82;
+  /* a página escreve color:var(--white) em cima dos botões dourados e
+     background:var(--white) em blocos — no escuro os dois querem a MESMA
+     cor de superfície, não branco */
+  --white: #12161a;
+  /* usada em 6 lugares do HTML e nunca declarada no :root da página; sem isto
+     esses textos ficariam pretos em cima do fundo escuro */
+  --text-primary: #eef2ee;
+  --shadow-soft: 0 16px 44px rgba(0, 0, 0, .45);
+}
+
+/* a barra do topo tem cor fixa creme no CSS da página */
+.navbar { background: rgba(18, 22, 26, .92) !important; border-bottom: 1px solid rgba(255, 255, 255, .08) !important; }
+
+/* bordas e divisores foram feitos em preto translúcido: somem no escuro */
+.glass { border-color: rgba(255, 255, 255, .08) !important; }
+.neon-divider { background: rgba(255, 255, 255, .1) !important; }
+
+/* o hover do botão tem terracota fixa */
+.cta-btn:hover { background: #e8b95c !important; }
+.cta-btn-secondary:hover { background: rgba(143, 191, 111, .12) !important; }
+
+/* trilho do simulador e caixa de retorno: contraste próprio */
+.sim-slider { background: rgba(255, 255, 255, .14) !important; }
+.sim-payback-box { background: rgba(143, 191, 111, .1) !important; border-color: var(--primary) !important; }
+
+/* fotos e prints ficam menos "recortados" num fundo escuro */
+img { filter: saturate(1.02); }

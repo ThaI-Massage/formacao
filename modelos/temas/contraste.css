@@ -1,0 +1,47 @@
+/* ===========================================================================
+   TEMA "CONTRASTE" — a mesma página, feita pra ler rápido e de longe
+   ---------------------------------------------------------------------------
+   Branco puro, preto de verdade no texto, verde escuro e âmbar como sinal.
+   Letra maior, cantos menores, borda visível em cada bloco: é o que serve
+   para anúncio e para quem enxerga pouco.
+   =========================================================================== */
+
+:root {
+  --bg-body: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f4f6f4;
+  --primary: #14532d;          /* verde escuro, contraste alto no branco */
+  --secondary: #b45309;        /* âmbar escuro: o botão */
+  --accent: #3f6212;
+  --text-main: #111827;
+  --text-secondary: #374151;   /* mais escuro que o original: lê melhor */
+  --text-muted: #6b7280;
+  --white: #ffffff;
+  --text-primary: #111827;
+  --shadow-soft: 0 6px 18px rgba(17, 24, 39, .1);
+  --font-accent: 'Outfit', system-ui, sans-serif;  /* título sem serifa: mais direto */
+  --radius-lg: 18px;
+  --radius-md: 12px;
+}
+
+/* corpo do texto um degrau maior em tudo que é leitura corrida */
+body { font-size: 17.5px; line-height: 1.7; }
+p, li { font-size: 1.02em; }
+
+/* cada bloco com contorno em vez de sombra difusa */
+.glass { border: 2px solid #e5e7eb !important; box-shadow: none !important; }
+.glass:hover { border-color: var(--primary) !important; }
+.neon-divider { background: #e5e7eb !important; }
+.navbar { background: rgba(255, 255, 255, .96) !important; border-bottom: 2px solid #e5e7eb !important; }
+
+/* título em caixa forte, do jeito que anúncio pede */
+.section-title, h1 { font-weight: 900; letter-spacing: -.02em; }
+
+/* botões maiores e mais sólidos */
+.cta-btn { padding: 22px 44px !important; font-size: 17px !important; box-shadow: 0 8px 20px rgba(180, 83, 9, .25) !important; }
+.cta-btn:hover { background: #92400e !important; }
+.cta-btn-secondary { border-width: 2px !important; }
+.cta-btn-secondary:hover { background: rgba(20, 83, 45, .06) !important; }
+
+.sim-slider { background: #e5e7eb !important; }
+.sim-payback-box { background: rgba(20, 83, 45, .07) !important; border-color: var(--primary) !important; }
