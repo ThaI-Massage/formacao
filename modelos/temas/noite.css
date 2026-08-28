@@ -42,5 +42,29 @@
 .sim-slider { background: rgba(255, 255, 255, .14) !important; }
 .sim-payback-box { background: rgba(143, 191, 111, .1) !important; border-color: var(--primary) !important; }
 
+/* ---------------------------------------------------------------------------
+   O QUE ESTÁ ESCRITO À MÃO NO HTML
+   A página tem branco e cinza-escuro digitados direto no `style=` de vários
+   blocos (cartão de plano, módulos, simulador…). Isso não passa pelas
+   variáveis: no escuro viraria texto claro em cima de branco, ilegível.
+   Estas regras trazem esses blocos de volta pro tema.
+   Achado medindo o contraste de todo texto da página, 28/08/2026.
+   --------------------------------------------------------------------------- */
+.glass,
+.simulator-box, .price-card, .module-card, .deliverable-card,
+.audience-card, .forma-card, .testimonial-card, .faq-item,
+[style*="background:#fff"], [style*="background: #fff"],
+[style*="background:#FFF"], [style*="background: #FFF"],
+[style*="background:white"], [style*="background: white"],
+[style*="background-color:#fff"], [style*="background-color: #fff"] {
+  background: var(--bg-card) !important;
+}
+
+[style*="color:#2d3436"], [style*="color: #2d3436"],
+[style*="color:#2D3436"], [style*="color: #2D3436"] { color: var(--text-main) !important; }
+
+[style*="color:#636e72"], [style*="color: #636e72"],
+[style*="color:#636E72"], [style*="color: #636E72"] { color: var(--text-secondary) !important; }
+
 /* fotos e prints ficam menos "recortados" num fundo escuro */
 img { filter: saturate(1.02); }
