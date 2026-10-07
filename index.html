@@ -210,7 +210,7 @@
 
 <body>
     <header class="sticky-header">
-        <div class="top-bar"><i class="fas fa-leaf"></i> &nbsp;Oferta por tempo limitado — Formação completa com acesso
+        <div class="top-bar"><i class="fas fa-leaf"></i> &nbsp;Black Friday antecipada — até 50% de desconto na Formação completa
             imediato </div>
         <nav class="navbar">
             <div class="container">
@@ -705,9 +705,9 @@
                 <div class="glass price-card reveal">
                     <div class="price-badge secondary">Acesso Anual</div>
                     <div class="price-value"><span class="installments" style="font-size: 1.4em; font-weight: 800;">12x de</span><span
-                            class="currency gradient-text">R$</span><span class="amount gradient-text">20,<small
-                                class="cents">37</small></span></div>
-                    <p>ou <strong>R$ 197</strong> à vista no Pix</p>
+                            class="currency gradient-text">R$</span><span class="amount gradient-text">10,<small
+                                class="cents">03</small></span></div>
+                    <p>de <s>R$ 197</s> por <strong>R$ 97</strong> à vista no Pix</p>
                     <ul class="price-list">
                         <li style="color:var(--secondary); font-weight: 700;"><i class="fas fa-sync-alt"></i> Renovação por apenas R$ 97/ano</li>
                         <li><i class="fas fa-check"></i> +6h de vídeo aulas</li>
@@ -716,7 +716,7 @@
                         <li><i class="fas fa-check"></i> Certificado de 24h</li>
                         <li><i class="fas fa-check"></i> Acesso por 1 ano</li>
                     </ul><a href="https://pay.kiwify.com.br/cvNjrRX" target="_blank" rel="noopener noreferrer"
-                        onclick="fbq('track', 'InitiateCheckout', {value: 197.00, currency: 'BRL'});"
+                        onclick="fbq('track', 'InitiateCheckout', {value: 97.00, currency: 'BRL'});"
                         data-tracking="checkout_anual" class="cta-btn-secondary"
                         style="width:100%;justify-content:center;">INSCREVER-ME</a>
                     <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px; text-align: center;"><i class="fas fa-lock" style="font-size: 10px;"></i> Liberação imediata via Pix</p>
@@ -724,9 +724,9 @@
                 <div class="glass price-card featured reveal" style="transition-delay:0.15s">
                     <div class="price-badge primary">⭐ Mais Escolhido</div>
                     <div class="price-value"><span class="installments" style="font-size: 1.4em; font-weight: 800;">12x de</span><span
-                            class="currency gradient-text">R$</span><span class="amount gradient-text">30,<small
-                                class="cents">72</small></span></div>
-                    <p>ou <strong>R$ 297</strong> à vista</p>
+                            class="currency gradient-text">R$</span><span class="amount gradient-text">20,<small
+                                class="cents">37</small></span></div>
+                    <p>de <s>R$ 297</s> por <strong>R$ 197</strong> à vista</p>
                     <ul class="price-list">
                         <li><i class="fas fa-infinity" style="color:var(--secondary)"></i><strong
                                 style="color:var(--secondary)">Acesso VITALÍCIO</strong></li>
@@ -735,7 +735,7 @@
                         <li><i class="fas fa-check"></i> Apostila inclusa</li>
                         <li><i class="fas fa-check"></i> Certificado de 24h</li>
                     </ul><a href="https://pay.kiwify.com.br/9sUYGo2" target="_blank" rel="noopener noreferrer"
-                        onclick="fbq('track', 'InitiateCheckout', {value: 297.00, currency: 'BRL'});"
+                        onclick="fbq('track', 'InitiateCheckout', {value: 197.00, currency: 'BRL'});"
                         data-tracking="checkout_vitalicio" class="cta-btn"
                         style="width:100%;justify-content:center; background-color: #00C853; color: #ffffff; box-shadow: 0 10px 25px rgba(0, 200, 83, 0.4);">ACESSO VITALÍCIO</a>
                     <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px; text-align: center;"><i class="fas fa-lock" style="font-size: 10px;"></i> Liberação imediata via Pix</p>
@@ -822,8 +822,8 @@
                 <details class="faq-item reveal">
                     <summary>Por quanto tempo tenho acesso ao conteúdo? <span class="icon"><i
                                 class="fas fa-chevron-down"></i></span></summary>
-                    <div class="faq-answer">Depende do plano. No <strong>Plano Anual (R$197)</strong> você tem 1 ano de
-                        acesso. No <strong>Plano Vitalício (R$297)</strong> o acesso é para sempre — assista quantas
+                    <div class="faq-answer">Depende do plano. No <strong>Plano Anual (R$97)</strong> você tem 1 ano de
+                        acesso. No <strong>Plano Vitalício (R$197)</strong> o acesso é para sempre — assista quantas
                         vezes quiser.</div>
                 </details>
                 <details class="faq-item reveal">
@@ -926,15 +926,15 @@
                     const total = q * p * 4.3; // 4.3 weeks in a month
                     totalVal.textContent = 'R$ ' + Math.round(total).toLocaleString('pt-BR');
                     
-                    // Calculate payback times (for Vitalício R$ 297)
-                    const timesAnual = total / 197;
-                    const timesVitalicio = total / 297;
+                    // Calculate payback times (for Vitalício R$ 197)
+                    const timesAnual = total / 97;
+                    const timesVitalicio = total / 197;
                     const timesMaster = total / 497;
                     
                     paybackBox.innerHTML = `
                         🔥 Este faturamento paga o investimento do seu curso:
-                        <br>• Plano Anual (R$ 197): <strong>${timesAnual.toFixed(1).replace('.', ',')}x</strong> todo mês!
-                        <br>• Plano Vitalício (R$ 297): <strong>${timesVitalicio.toFixed(1).replace('.', ',')}x</strong> todo mês!
+                        <br>• Plano Anual (R$ 97): <strong>${timesAnual.toFixed(1).replace('.', ',')}x</strong> todo mês!
+                        <br>• Plano Vitalício (R$ 197): <strong>${timesVitalicio.toFixed(1).replace('.', ',')}x</strong> todo mês!
                         <br>• Plano Master (R$ 497): <strong>${timesMaster.toFixed(1).replace('.', ',')}x</strong> todo mês!
                     `;
                 }
