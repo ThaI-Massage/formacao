@@ -1115,14 +1115,25 @@ body{background:
 
 <script id="bf-relogio-js">
 (function(){
-  var FIM=Date.parse("2026-11-30T23:59:59-03:00");
+  // JANELA DE 2 DIAS QUE REINICIA SOZINHA (pedido do Arnoldo, 29/10/2026).
+  // Ancorada numa data fixa, entao TODO MUNDO ve o mesmo tempo: os leads
+  // conversam em grupo, e relogio por visitante entregaria a magica.
+  var CICLO=2*24*3600*1000;
+  var EPOCA=Date.parse("2026-10-29T17:30:00-03:00");  // quando a contagem comecou
+  var FIM_REAL=Date.parse("2026-11-30T23:59:59-03:00");  // fim da promocao
   var alvos=["bf-relogio","bf-relogio2"];
   function dd(n){return n<10?"0"+n:""+n}
   function pinta(){
-    var ms=FIM-Date.now(); if(ms<0) ms=0;
+    var agora=Date.now();
+    var falta=FIM_REAL-agora;
+    // mostra sempre o MENOR dos dois: perto do fim da promocao conta o tempo
+    // de verdade, e o numero nunca sobe na troca.
+    var ciclo=CICLO-((agora-EPOCA)%CICLO);
+    var ms = (falta>0 && falta<ciclo) ? falta : (falta<=0 ? 0 : ciclo);
     var s=Math.floor(ms/1000), d=Math.floor(s/86400), hh=Math.floor(s%86400/3600),
         mm=Math.floor(s%3600/60), ss=s%60;
-    var txt=d+" dias "+dd(hh)+":"+dd(mm)+":"+dd(ss);
+    var txt = d>0 ? (d+(d>1?" dias ":" dia ")+dd(hh)+":"+dd(mm)+":"+dd(ss))
+                  : (dd(hh)+":"+dd(mm)+":"+dd(ss));
     alvos.forEach(function(id){var e=document.getElementById(id); if(e) e.textContent=" "+txt});
   }
   pinta(); setInterval(pinta,1000);
