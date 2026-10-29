@@ -206,11 +206,143 @@
     <script>(function () { 'use strict'; var SUPABASE_URL = 'https://tlkgqjtzjzxymzwxyfqu.supabase.co'; })();</script>
     <script
         type="application/ld+json"> { "@context": "https://schema.org", "@type": "Course", "name": "Curso de Thai Massage", "description": "Curso completo de Massagem Tailandesa.", "provider": { "@type": "Person", "name": "Arnoldo Benkenstein" } } </script>
+<!-- ============================================================
+     CARA DE BLACK FRIDAY — bloco único, some inteiro em 30/11/2026.
+     Para tirar: apagar daqui ate a marca de fim da Black Friday.
+     Não mexe em preço, link de checkout nem estrutura da página:
+     só troca as cores (as variáveis do :root) e acrescenta o
+     contador, o selo do hero e as fitas dos cartões.
+     ============================================================ -->
+<style id="bf-tema">
+:root{
+  --bg-body:#0C0A09; --bg-card:#17120F; --bg-card-hover:#1F1813;
+  --primary:#E0B055; --secondary:#C68E62; --accent:#8A7556;
+  --text-main:#F7F2E8; --text-secondary:#C3B8A6; --text-muted:#8A8073;
+  --white:#17120F;
+  --shadow-soft:0 14px 40px rgba(0,0,0,.55);
+  --bf-ouro:#E0B055; --bf-ouro-claro:#F3D79A; --bf-risco:#D4756A;
+}
+body{background:
+  radial-gradient(900px 480px at 12% -8%, rgba(224,176,85,.11), transparent 62%),
+  radial-gradient(760px 420px at 92% 4%, rgba(198,142,98,.09), transparent 60%),
+  var(--bg-body)}
+.glass{border-color:rgba(224,176,85,.16)}
+.glass:hover{border-color:var(--bf-ouro);box-shadow:0 18px 46px rgba(224,176,85,.14)}
+.navbar{background:rgba(12,10,9,.92);border-bottom:1px solid rgba(224,176,85,.18)}
+.nav-links a{color:var(--text-secondary)}
+.nav-cta{background:var(--bf-ouro);color:#15100C;box-shadow:0 6px 18px rgba(224,176,85,.3)}
+.nav-cta:hover{background:var(--bf-ouro-claro);color:#15100C}
+
+/* faixa do topo: preta com dourado e contador */
+.top-bar{background:#000;color:var(--bf-ouro-claro);border-bottom:1px solid rgba(224,176,85,.4);
+  padding:10px 14px;font-size:12.5px;letter-spacing:.14em;line-height:1.5}
+.top-bar b{color:#fff}
+#bf-relogio{display:inline-block;margin-left:6px;color:#fff;font-variant-numeric:tabular-nums}
+
+/* selo do hero */
+.hero-badge{background:rgba(224,176,85,.1);border:1px solid rgba(224,176,85,.5);color:var(--bf-ouro-claro)}
+.hero-badge .dot{background:var(--bf-ouro)}
+.bf-selo{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;padding:9px 18px;
+  border-radius:50px;background:linear-gradient(135deg,#E0B055,#F3D79A);color:#15100C;
+  font-weight:900;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+.hero-img-frame{border-color:#17120F}
+.hero-quote{background:#17120F;border-color:rgba(224,176,85,.18)}
+.hero-stats{background:#17120F;border:1px solid rgba(224,176,85,.14)}
+
+/* botões */
+.cta-btn{background:linear-gradient(135deg,#E0B055,#C68E62);color:#15100C;
+  box-shadow:0 12px 28px rgba(224,176,85,.28)}
+.cta-btn:hover{background:linear-gradient(135deg,#F3D79A,#E0B055);color:#15100C}
+.cta-btn-secondary{color:var(--bf-ouro);border-color:var(--bf-ouro)}
+.cta-btn-secondary:hover{background:rgba(224,176,85,.1)}
+.floating-cta{background:linear-gradient(135deg,#E0B055,#C68E62);color:#15100C;
+  box-shadow:0 10px 30px rgba(224,176,85,.3)}
+
+/* seções e detalhes */
+.section-label{color:var(--bf-ouro)}
+.neon-divider{background:rgba(224,176,85,.14)}
+.bg-alt{background:#0A0807}
+.faq-item{background:#17120F;border-color:rgba(224,176,85,.12)}
+.testimonial-card{background:#17120F;border-color:rgba(224,176,85,.12)}
+.trust-pill{background:rgba(224,176,85,.07);border-color:rgba(224,176,85,.2);color:var(--text-secondary)}
+.guarantee-banner{background:rgba(224,176,85,.05);border-color:var(--bf-ouro)}
+.guarantee-banner:hover{background:#17120F}
+.guarantee-banner-icon{color:var(--bf-ouro)}
+.footer{border-top-color:rgba(224,176,85,.14)}
+.footer-socials a{background:rgba(224,176,85,.08);border-color:rgba(224,176,85,.18);color:var(--text-secondary)}
+.footer-socials a:hover{background:var(--bf-ouro);border-color:var(--bf-ouro);color:#15100C}
+.module-img::after,.forma-img::after{background:linear-gradient(to top,#17120F,transparent 60%)}
+.audience-icon.teal,.audience-icon.blue{background:rgba(224,176,85,.1);color:var(--bf-ouro)}
+.audience-icon.magenta{background:rgba(198,142,98,.12);color:var(--secondary)}
+.audience-icon.purple{background:rgba(138,117,86,.14);color:var(--accent)}
+.tag-teal{background:var(--bf-ouro);color:#15100C}
+
+/* cartões de preço: fita de Black Friday nos dois planos em promoção */
+.price-card{background:#17120F}
+.price-card.featured{border-color:var(--bf-ouro);box-shadow:0 22px 56px rgba(224,176,85,.18)}
+.price-card.premium{border-color:rgba(198,142,98,.6)}
+.price-badge.secondary{background:#17120F;border-color:rgba(224,176,85,.35);color:var(--bf-ouro-claro)}
+.price-badge.primary{background:linear-gradient(135deg,#E0B055,#F3D79A);color:#15100C}
+.price-card .amount,.price-card .currency,.price-card .cents,.price-card .gradient-text{color:var(--bf-ouro-claro)}
+.price-card p s{color:var(--bf-risco);text-decoration-thickness:2px;opacity:.95}
+.price-card p strong{color:#fff}
+.price-list li i{color:var(--bf-ouro)}
+.price-list li strong{color:var(--text-main)}
+.pricing-grid .price-card:nth-child(1),
+.pricing-grid .price-card:nth-child(2){padding-top:54px}
+.pricing-grid .price-card:nth-child(1)::before,
+.pricing-grid .price-card:nth-child(2)::before{
+  content:"BLACK FRIDAY · 50% OFF";position:absolute;top:18px;left:50%;transform:translateX(-50%);
+  background:#000;color:var(--bf-ouro-claro);border:1px solid rgba(224,176,85,.55);
+  padding:5px 14px;border-radius:50px;font-size:10.5px;font-weight:900;letter-spacing:.14em;white-space:nowrap}
+.pricing-grid .price-card:nth-child(2)::before{content:"BLACK FRIDAY · 34% OFF"}
+
+/* o botão do vitalício vem com verde no style do HTML: aqui ele entra no dourado */
+.price-card.featured .cta-btn{background:linear-gradient(135deg,#E0B055,#F3D79A)!important;
+  color:#15100C!important;box-shadow:0 12px 30px rgba(224,176,85,.35)!important}
+.price-card.featured .cta-btn:hover{background:linear-gradient(135deg,#F3D79A,#FFF0C9)!important}
+.price-card.premium .cta-btn{background:linear-gradient(135deg,#C68E62,#A36D44)!important;color:#fff!important}
+
+/* a caixa da oferta ja tem botao: o "Começar Agora" logo abaixo virava repetição */
+.bf-oferta + div[style*="flex-wrap:wrap"]{display:none!important}
+
+/* celular primeiro: a faixa e o selo encolhem sem quebrar */
+@media(max-width:768px){
+  .top-bar{font-size:11px;letter-spacing:.08em;padding:9px 12px}
+  .bf-selo{font-size:11px;padding:8px 14px;letter-spacing:.12em}
+  .pricing-grid .price-card:nth-child(1)::before,
+  .pricing-grid .price-card:nth-child(2)::before{font-size:9.5px;padding:5px 11px}
+}
+/* CAIXA DA OFERTA NO HERO — a pessoa vê o preço antes de rolar */
+.bf-oferta{margin:0 0 32px;padding:22px 24px;border-radius:22px;background:#17120F;
+  border:1px solid rgba(224,176,85,.45);box-shadow:0 18px 46px rgba(0,0,0,.5)}
+.bf-oferta-topo{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.bf-oferta-tag{background:linear-gradient(135deg,#E0B055,#F3D79A);color:#15100C;font-weight:900;
+  font-size:11px;letter-spacing:.16em;padding:6px 13px;border-radius:50px;white-space:nowrap}
+.bf-oferta-prazo{font-size:12px;color:var(--text-secondary);letter-spacing:.04em}
+.bf-oferta-prazo b{color:#fff;font-variant-numeric:tabular-nums}
+.bf-linha{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.bf-linha + .bf-linha{margin-top:10px;padding-top:12px;border-top:1px solid rgba(224,176,85,.16)}
+.bf-plano{font-size:13px;color:var(--text-secondary);min-width:118px}
+.bf-de{color:var(--bf-risco);text-decoration:line-through;font-size:15px}
+.bf-por{font-family:var(--font-accent);font-size:30px;font-weight:900;color:var(--bf-ouro-claro);line-height:1}
+.bf-parcela{font-size:13px;color:var(--text-secondary)}
+.bf-economia{background:rgba(224,176,85,.14);border:1px solid rgba(224,176,85,.4);color:var(--bf-ouro-claro);
+  font-size:11px;font-weight:800;letter-spacing:.08em;padding:4px 10px;border-radius:50px;white-space:nowrap}
+.bf-oferta .cta-btn{margin-top:18px;width:100%;justify-content:center}
+@media(max-width:768px){
+  .bf-oferta{padding:18px 16px;border-radius:18px}
+  .bf-por{font-size:26px}
+  .bf-plano{min-width:100%;margin-bottom:-4px}
+}
+</style>
+<!-- /BLACK FRIDAY -->
+
 </head>
 
 <body>
     <header class="sticky-header">
-        <div class="top-bar"><i class="fas fa-leaf"></i> &nbsp;Black Friday antecipada — até 50% de desconto na Formação completa
+        <div class="top-bar"><b>BLACK FRIDAY ANTECIPADA</b> &nbsp;·&nbsp; até 50% de desconto &nbsp;·&nbsp; termina em&nbsp;<span id="bf-relogio">—</span>
             </div>
         <nav class="navbar">
             <div class="container">
@@ -225,6 +357,7 @@
         <div class="container">
             <div class="hero-grid">
                 <div>
+                    <div class="bf-selo">BLACK FRIDAY · ATÉ 50% OFF</div>
                     <div class="hero-badge"><span class="dot"></span> Curso Online — Acesso Imediato</div>
                     <h1>Do Zero ao Atendimento <span class="gradient-text">High-Ticket</span> com <span class="gradient-text">Thai Massage</span></h1>
                     <div class="hero-img-wrapper hero-img-mobile" style="margin-bottom: 48px;">
@@ -239,6 +372,27 @@
                         <strong>Mais de 420 manobras</strong> detalhadas, do fundamento teórico à prática clínica
                         avançada.
                     </p>
+                    <div class="bf-oferta">
+                        <div class="bf-oferta-topo">
+                            <span class="bf-oferta-tag">BLACK FRIDAY ANTECIPADA</span>
+                            <span class="bf-oferta-prazo">termina em <b id="bf-relogio2">—</b></span>
+                        </div>
+                        <div class="bf-linha">
+                            <span class="bf-plano">Acesso vitalício</span>
+                            <span class="bf-de">R$ 297</span>
+                            <span class="bf-por">R$ 197</span>
+                            <span class="bf-parcela">ou 12x de R$ 20,37</span>
+                            <span class="bf-economia">ECONOMIZE R$ 100</span>
+                        </div>
+                        <div class="bf-linha">
+                            <span class="bf-plano">Acesso de 1 ano</span>
+                            <span class="bf-de">R$ 197</span>
+                            <span class="bf-por">R$ 97</span>
+                            <span class="bf-parcela">ou 12x de R$ 10,03</span>
+                            <span class="bf-economia">ECONOMIZE R$ 100</span>
+                        </div>
+                        <a href="#investimento" class="cta-btn"><i class="fas fa-bolt"></i> Garantir meu desconto</a>
+                    </div>
                     <div style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:40px;"><a href="#investimento"
                             class="cta-btn"><i class="fas fa-play-circle"></i> Começar Agora</a></div>
                     <div class="hero-stats">
@@ -958,6 +1112,22 @@
         });
     </script>
     <script>document.addEventListener('DOMContentLoaded', () => { const currentParams = new URLSearchParams(window.location.search); if (currentParams.toString()) { document.querySelectorAll('a[href*="pay.kiwify.com.br"]').forEach(link => { try { const linkUrl = new URL(link.href); currentParams.forEach((value, key) => { linkUrl.searchParams.set(key, value); }); link.href = linkUrl.toString(); } catch (e) { console.error('Error appending UTMs to link:', link.href, e); } }); } });</script>
+
+<script id="bf-relogio-js">
+(function(){
+  var FIM=Date.parse("2026-11-30T23:59:59-03:00");
+  var alvos=["bf-relogio","bf-relogio2"];
+  function dd(n){return n<10?"0"+n:""+n}
+  function pinta(){
+    var ms=FIM-Date.now(); if(ms<0) ms=0;
+    var s=Math.floor(ms/1000), d=Math.floor(s/86400), hh=Math.floor(s%86400/3600),
+        mm=Math.floor(s%3600/60), ss=s%60;
+    var txt=d+" dias "+dd(hh)+":"+dd(mm)+":"+dd(ss);
+    alvos.forEach(function(id){var e=document.getElementById(id); if(e) e.textContent=" "+txt});
+  }
+  pinta(); setInterval(pinta,1000);
+})();
+</script>
 </body>
 
 </html>
