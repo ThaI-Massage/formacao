@@ -66,10 +66,10 @@
     <meta http-equiv="Cache-Control" content="max-age=31536000, public">
     <meta http-equiv="Pragma" content="cache">
     <meta name="description"
-        content="Aprenda Thai Massage com Arnoldo Benkenstein, terapeuta com mais de 17 anos de experiência. Curso completo com acesso anual ou vitalício. Inscreva-se!">
+        content="Aprenda Thai Massage com Arnoldo Benkenstein, terapeuta com mais de 17 anos de experiência. Curso completo, 12x de R$ 10,03. Inscreva-se!">
     <meta property="og:title" content="Arnoldo Benkentein Massage do Básico ao Avançado" />
     <meta property="og:description"
-        content="Formação online completa. Mais de 420 manobras detalhadas. Certificado de curso livre de até 60h." />
+        content="Formação online completa. Mais de 420 manobras detalhadas. Certificado de curso livre de 24h." />
     <meta property="og:image" content="./images/formacao-thai-massage-completa.jpg" />
     <meta property="og:type" content="website" />
     <title>Formação Completa em Thai Massage | Arnoldo Benkenstein</title>
@@ -195,6 +195,20 @@
         .sim-payback-box strong {
             color: #1b5e20;
             font-weight: 800;
+        }
+        .sim-parcela {
+            display: block;
+            font-family: var(--font-accent);
+            font-size: 34px;
+            font-weight: 900;
+            line-height: 1.1;
+            color: #E0B055;
+            margin: 4px 0 2px;
+        }
+        .sim-avista {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 10px;
         }
         .sim-res-note {
             font-size: 12px;
@@ -329,12 +343,35 @@ body{background:
 .bf-parcela{font-size:13px;color:var(--text-secondary)}
 .bf-economia{background:rgba(224,176,85,.14);border:1px solid rgba(224,176,85,.4);color:var(--bf-ouro-claro);
   font-size:11px;font-weight:800;letter-spacing:.08em;padding:4px 10px;border-radius:50px;white-space:nowrap}
-.bf-oferta .cta-btn{margin-top:18px;width:100%;justify-content:center}
+.bf-oferta .cta-btn{margin-top:18px;width:100%;justify-content:center;text-align:center}
+/* oferta única (11/11/2026): o 12x é o maior número do bloco */
+.bf-unica{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.bf-unica .bf-plano{min-width:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.bf-parcela-grande{font-family:var(--font-accent);font-size:68px;font-weight:900;line-height:1;color:var(--bf-ouro-claro);text-shadow:0 4px 24px rgba(224,176,85,.35)}
+.bf-12x{display:block;font-size:30px;line-height:1.1;margin-bottom:2px}
+.bf-avista{font-size:17px;color:var(--text-main)}
+.bf-ancora{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:2px}
+.bf-unica .bf-de{font-size:14px}
 @media(max-width:768px){
   .bf-oferta{padding:18px 16px;border-radius:18px}
   .bf-por{font-size:26px}
   .bf-plano{min-width:100%;margin-bottom:-4px}
+  .bf-unica{align-items:center;text-align:center}
+  .bf-unica .bf-plano{min-width:0;margin-bottom:0}
+  .bf-parcela-grande{font-size:58px}
+  .bf-12x{font-size:26px}
+  .bf-ancora{justify-content:center}
 }
+/* simulador: caixa do valor no dourado (o verde escuro sumia no fundo preto) */
+.sim-payback-box{background:rgba(224,176,85,.08);border:1px dashed var(--bf-ouro);color:var(--text-main);text-align:center;font-size:15px}
+.sim-payback-box strong{color:var(--bf-ouro-claro)}
+.sim-parcela{color:var(--bf-ouro-claro)}
+/* 11/11/2026: só o plano Anual na página → um cartão só, centralizado */
+.pricing-grid{grid-template-columns:1fr!important;max-width:460px!important}
+/* plano Anual com o mesmo destaque dourado do topo */
+.price-card.plano-anual{border:2px solid var(--bf-ouro);box-shadow:0 22px 56px rgba(224,176,85,.18)}
+.price-card.plano-anual .cta-btn-secondary{background:linear-gradient(135deg,#E0B055,#F3D79A);color:#15100C;border-color:transparent;box-shadow:0 12px 30px rgba(224,176,85,.35)}
+.price-card.plano-anual .cta-btn-secondary:hover{background:linear-gradient(135deg,#F3D79A,#FFF0C9)}
 </style>
 <!-- /BLACK FRIDAY -->
 
@@ -342,7 +379,7 @@ body{background:
 
 <body>
     <header class="sticky-header">
-        <div class="top-bar"><b>BLACK FRIDAY ANTECIPADA</b> &nbsp;·&nbsp; até 50% de desconto &nbsp;·&nbsp; termina em&nbsp;<span id="bf-relogio">—</span>
+        <div class="top-bar"><b>BLACK FRIDAY ANTECIPADA</b> &nbsp;·&nbsp; até 50% de desconto &nbsp;·&nbsp; <span class="bf-prazo">termina em&nbsp;<span id="bf-relogio">—</span></span>
             </div>
         <nav class="navbar">
             <div class="container">
@@ -375,23 +412,14 @@ body{background:
                     <div class="bf-oferta">
                         <div class="bf-oferta-topo">
                             <span class="bf-oferta-tag">BLACK FRIDAY ANTECIPADA</span>
-                            <span class="bf-oferta-prazo">termina em <b id="bf-relogio2">—</b></span>
+                            <span class="bf-oferta-prazo bf-prazo">termina em <b id="bf-relogio2">—</b></span>
                         </div>
-                        <div class="bf-linha">
-                            <span class="bf-plano">Acesso vitalício</span>
-                            <span class="bf-de">R$ 297</span>
-                            <span class="bf-por">R$ 197</span>
-                            <span class="bf-parcela">ou 12x de R$ 20,37</span>
-                            <span class="bf-economia">ECONOMIZE R$ 100</span>
-                        </div>
-                        <div class="bf-linha">
+                        <div class="bf-unica">
                             <span class="bf-plano">Acesso de 1 ano</span>
-                            <span class="bf-de">R$ 197</span>
-                            <span class="bf-por">R$ 97</span>
-                            <span class="bf-parcela">ou 12x de R$ 10,03</span>
-                            <span class="bf-economia">ECONOMIZE R$ 100</span>
+                            <span class="bf-parcela-grande"><span class="bf-12x">12x de</span>R$ 10,03</span>
+                            <span class="bf-avista">ou R$ 97 à vista no Pix</span>
                         </div>
-                        <a href="#investimento" class="cta-btn"><i class="fas fa-bolt"></i> Garantir meu desconto</a>
+                        <a href="#investimento" class="cta-btn"><i class="fas fa-bolt"></i> <span>COMEÇAR AGORA — <span style="white-space:nowrap">12x de R$ 10,03</span></span></a>
                     </div>
                     <div style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:40px;"><a href="#investimento"
                             class="cta-btn"><i class="fas fa-play-circle"></i> Começar Agora</a></div>
@@ -687,13 +715,13 @@ body{background:
                         </li>
                         <li><i class="fas fa-check-circle"></i> Qualifica para <strong>atendimento profissional</strong>
                         </li>
-                        <li><i class="fas fa-check-circle"></i>Certificado de <strong>24h ou 60h</strong> (Master Thai)</li>
+                        <li><i class="fas fa-check-circle"></i>Certificado de <strong>24h</strong></li>
                     </ul>
                 </div>
                 <div class="reveal" style="transition-delay:0.2s">
                     <div class="cert-img"><img src="./images/THAI_MASSAGE_certificado.webp"
                             srcset="./images/certificado-formacao-thai-massage.webp 1x, ./images/THAI_MASSAGE_certificado.webp 2x"
-                            alt="Certificado de Formação Profissional em Thai Massage de 60h" loading="lazy"></div>
+                            alt="Certificado de Formação Profissional em Thai Massage" loading="lazy"></div>
                 </div>
             </div>
         </div>
@@ -856,14 +884,13 @@ body{background:
                     investimento. A partir daí, é <strong>lucro puro</strong>.</p>
             </div>
             <div class="pricing-grid">
-                <div class="glass price-card reveal">
+                <div class="glass price-card plano-anual reveal">
                     <div class="price-badge secondary">Acesso Anual</div>
                     <div class="price-value"><span class="installments" style="font-size: 1.4em; font-weight: 800;">12x de</span><span
                             class="currency gradient-text">R$</span><span class="amount gradient-text">10,<small
                                 class="cents">03</small></span></div>
-                    <p>de <s>R$ 197</s> por <strong>R$ 97</strong> à vista no Pix</p>
+                    <p>ou <strong>R$ 97</strong> à vista no Pix</p>
                     <ul class="price-list">
-                        <li style="color:var(--secondary); font-weight: 700;"><i class="fas fa-sync-alt"></i> Renovação por apenas R$ 97/ano</li>
                         <li><i class="fas fa-check"></i> +6h de vídeo aulas</li>
                         <li><i class="fas fa-check"></i> +420 manobras detalhadas</li>
                         <li><i class="fas fa-check"></i> Apostila inclusa</li>
@@ -873,47 +900,6 @@ body{background:
                         onclick="fbq('track', 'InitiateCheckout', {value: 97.00, currency: 'BRL'});"
                         data-tracking="checkout_anual" class="cta-btn-secondary"
                         style="width:100%;justify-content:center;">INSCREVER-ME</a>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px; text-align: center;"><i class="fas fa-lock" style="font-size: 10px;"></i> Liberação imediata via Pix</p>
-                </div>
-                <div class="glass price-card featured reveal" style="transition-delay:0.15s">
-                    <div class="price-badge primary">⭐ Mais Escolhido</div>
-                    <div class="price-value"><span class="installments" style="font-size: 1.4em; font-weight: 800;">12x de</span><span
-                            class="currency gradient-text">R$</span><span class="amount gradient-text">20,<small
-                                class="cents">37</small></span></div>
-                    <p>de <s>R$ 297</s> por <strong>R$ 197</strong> à vista</p>
-                    <ul class="price-list">
-                        <li><i class="fas fa-infinity" style="color:var(--secondary)"></i><strong
-                                style="color:var(--secondary)">Acesso VITALÍCIO</strong></li>
-                        <li><i class="fas fa-check"></i> +6h de vídeo aulas</li>
-                        <li><i class="fas fa-check"></i> +420 manobras detalhadas</li>
-                        <li><i class="fas fa-check"></i> Apostila inclusa</li>
-                        <li><i class="fas fa-check"></i> Certificado de 24h</li>
-                    </ul><a href="https://pay.kiwify.com.br/9sUYGo2" target="_blank" rel="noopener noreferrer"
-                        onclick="fbq('track', 'InitiateCheckout', {value: 197.00, currency: 'BRL'});"
-                        data-tracking="checkout_vitalicio" class="cta-btn"
-                        style="width:100%;justify-content:center; background-color: #00C853; color: #ffffff; box-shadow: 0 10px 25px rgba(0, 200, 83, 0.4);">ACESSO VITALÍCIO</a>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px; text-align: center;"><i class="fas fa-lock" style="font-size: 10px;"></i> Liberação imediata via Pix</p>
-                </div>
-                <div class="glass price-card premium reveal" style="transition-delay:0.3s">
-                    <div class="price-badge premium">👑 Master Thai</div>
-                    <div class="price-value"><span class="installments" style="font-size: 1.4em; font-weight: 800;">12x de</span><span
-                            class="currency gradient-text">R$</span><span class="amount gradient-text">51,<small
-                                class="cents">40</small></span></div>
-                    <p>ou <strong>R$ 497</strong> à vista</p>
-                    <ul class="price-list">
-                        <li><i class="fas fa-check"></i> <strong>Mais aulas</strong> que os outros planos</li>
-                        <li><i class="fas fa-check"></i> <strong>Mais manobras</strong> detalhadas</li>
-                        <li><i class="fas fa-check"></i> Apostila inclusa</li>
-                        <li><i class="fas fa-check"></i> Certificado de 60h</li>
-                        <li><i class="fas fa-infinity" style="color:var(--secondary)"></i><strong
-                                style="color:var(--secondary)">Acesso VITALÍCIO</strong></li>
-                        <li style="color:var(--secondary); font-weight: 600;"><i class="fas fa-users"></i> 3 meses de mentoria semanal c/ Professor</li>
-                        <li style="color:var(--secondary); font-weight: 600;"><i class="fas fa-phone-alt"></i> Chamada pessoal c/ Professor</li>
-                        <li style="color:var(--secondary); font-weight: 600; display: block;"><div style="display:flex; align-items:center; gap:10px;"><i class="fas fa-id-card"></i> Divulgação como terapeuta indicado</div><span style="display:block; font-size: 11px; font-weight: 500; opacity: 0.9; margin-left: 24px; margin-top: 3px; line-height: 1.3; color: var(--text-secondary);">(Sujeito à avaliação de desempenho e aproveitamento do aluno pelo professor)</span></li>
-                    </ul><a href="https://pay.kiwify.com.br/itgl74b" target="_blank" rel="noopener noreferrer"
-                        onclick="fbq('track', 'InitiateCheckout', {value: 497.00, currency: 'BRL'});"
-                        data-tracking="checkout_master" class="cta-btn"
-                        style="width:100%;justify-content:center; background-color: var(--secondary); color: #ffffff; box-shadow: 0 10px 25px rgba(198, 142, 98, 0.4);">QUERO SER MASTER</a>
                     <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px; text-align: center;"><i class="fas fa-lock" style="font-size: 10px;"></i> Liberação imediata via Pix</p>
                 </div>
             </div>
@@ -938,22 +924,6 @@ body{background:
         </div>
     </section>
     <hr class="neon-divider">
-    <section class="section bg-alt" style="text-align: center;">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-label">Contato Direto</span>
-                <h2 class="section-title">Ainda tem dúvidas? Fale com o <span class="gradient-text">Professor</span>!</h2>
-                <p class="section-subtitle">Agende um horário para conversar diretamente com o <strong>Prof. Arnoldo Benkenstein</strong> via WhatsApp. Ele vai te ajudar a entender se a formação é o passo certo para a sua carreira neste momento.</p>
-            </div>
-            <div class="reveal" style="margin-top: 30px;">
-                <a href="https://wa.me/555195699906?text=_%2F%5C_%20Ol%C3%A1%20gostaria%20de%20agendar%20uma%20conversa%20com%20o%20Prof.%20Arnoldo%20Benkenstein%20sobre%20o%20curso%20Thai%20Masssage%20do%20B%C3%A1sico%20ao%20Avan%C3%A7ado%20" target="_blank" rel="noopener noreferrer" class="cta-btn" style="background-color: #25D366; color: #fff; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); display: inline-flex; justify-content: center; width: auto; padding: 16px 32px; gap: 8px;">
-                    <i class="far fa-calendar-check" style="font-size: 1.2em;"></i>
-                    QUERO AGENDAR UMA CONVERSA
-                </a>
-            </div>
-        </div>
-    </section>
-    <hr class="neon-divider">
     <section class="section">
         <div class="container">
             <div class="section-header reveal">
@@ -970,14 +940,13 @@ body{background:
                 <details class="faq-item reveal">
                     <summary>O curso oferece certificado? <span class="icon"><i class="fas fa-chevron-down"></i></span>
                     </summary>
-                    <div class="faq-answer">Sim! Ao concluir, você recebe um <strong>Certificado Profissional</strong> (24h nos planos Anual/Vitalício e 60h no plano Master Thai), assinado pelo professor Arnoldo
+                    <div class="faq-answer">Sim! Ao concluir, você recebe um <strong>Certificado Profissional</strong> de 24h, assinado pelo professor Arnoldo
                         Benkenstein. É um certificado de <strong>curso livre de qualificação profissional</strong>, nos termos do art. 42 da LDB (Lei nº 9.394/96), com validade em todo o território nacional.</div>
                 </details>
                 <details class="faq-item reveal">
                     <summary>Por quanto tempo tenho acesso ao conteúdo? <span class="icon"><i
                                 class="fas fa-chevron-down"></i></span></summary>
-                    <div class="faq-answer">Depende do plano. No <strong>Plano Anual (R$97)</strong> você tem 1 ano de
-                        acesso. No <strong>Plano Vitalício (R$197)</strong> o acesso é para sempre — assista quantas
+                    <div class="faq-answer">Você tem <strong>1 ano de acesso</strong> — assista quantas
                         vezes quiser.</div>
                 </details>
                 <details class="faq-item reveal">
@@ -1002,11 +971,22 @@ body{background:
                         ficar satisfeito, basta solicitar o reembolso e devolvemos 100% do seu investimento. Sem
                         burocracia.</div>
                 </details>
-                <details class="faq-item reveal">
-                    <summary>Como funciona a divulgação como terapeuta indicado no Plano Master? <span class="icon"><i
-                                class="fas fa-chevron-down"></i></span></summary>
-                    <div class="faq-answer">A indicação e divulgação do aluno como terapeuta recomendado pelo professor Arnoldo Benkenstein depende diretamente da <strong>performance do aluno</strong> e da <strong>avaliação técnica do professor</strong> durante o curso e as mentorias, mantendo o selo de qualidade das indicações.</div>
-                </details>
+            </div>
+        </div>
+    </section>
+    <hr class="neon-divider">
+    <section class="section bg-alt" style="text-align: center;">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Contato Direto</span>
+                <h2 class="section-title">Ainda tem dúvidas? Fale com o <span class="gradient-text">Professor</span>!</h2>
+                <p class="section-subtitle">Agende um horário para conversar diretamente com o <strong>Prof. Arnoldo Benkenstein</strong> via WhatsApp. Ele vai te ajudar a entender se a formação é o passo certo para a sua carreira neste momento.</p>
+            </div>
+            <div class="reveal" style="margin-top: 30px;">
+                <a href="https://wa.me/555195699906?text=_%2F%5C_%20Ol%C3%A1%20gostaria%20de%20agendar%20uma%20conversa%20com%20o%20Prof.%20Arnoldo%20Benkenstein%20sobre%20o%20curso%20Thai%20Masssage%20do%20B%C3%A1sico%20ao%20Avan%C3%A7ado%20" target="_blank" rel="noopener noreferrer" class="cta-btn" style="background-color: #25D366; color: #fff; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); display: inline-flex; justify-content: center; width: auto; padding: 16px 32px; gap: 8px;">
+                    <i class="far fa-calendar-check" style="font-size: 1.2em;"></i>
+                    QUERO AGENDAR UMA CONVERSA
+                </a>
             </div>
         </div>
     </section>
@@ -1080,16 +1060,14 @@ body{background:
                     const total = q * p * 4.3; // 4.3 weeks in a month
                     totalVal.textContent = 'R$ ' + Math.round(total).toLocaleString('pt-BR');
                     
-                    // Calculate payback times (for Vitalício R$ 197)
+                    // quantas vezes o faturamento paga o plano Anual (R$ 97)
                     const timesAnual = total / 97;
-                    const timesVitalicio = total / 197;
-                    const timesMaster = total / 497;
                     
+                    // 11/11/2026: só o anual, com a parcela em destaque (pedido do Arnoldo)
                     paybackBox.innerHTML = `
-                        🔥 Este faturamento paga o investimento do seu curso:
-                        <br>• Plano Anual (R$ 97): <strong>${timesAnual.toFixed(1).replace('.', ',')}x</strong> todo mês!
-                        <br>• Plano Vitalício (R$ 197): <strong>${timesVitalicio.toFixed(1).replace('.', ',')}x</strong> todo mês!
-                        <br>• Plano Master (R$ 497): <strong>${timesMaster.toFixed(1).replace('.', ',')}x</strong> todo mês!
+                        Seu curso sai por <span class="sim-parcela">12x de R$ 10,03</span>
+                        <span class="sim-avista">ou R$ 97 à vista no Pix</span>
+                        Este faturamento paga o seu curso <strong>${timesAnual.toFixed(1).replace('.', ',')}x</strong> todo mês!
                     `;
                 }
                 qtyRange.addEventListener('input', calc);
@@ -1115,28 +1093,38 @@ body{background:
 
 <script id="bf-relogio-js">
 (function(){
-  // JANELA DE 2 DIAS QUE REINICIA SOZINHA (pedido do Arnoldo, 29/10/2026).
-  // Ancorada numa data fixa, entao TODO MUNDO ve o mesmo tempo: os leads
-  // conversam em grupo, e relogio por visitante entregaria a magica.
-  var CICLO=2*24*3600*1000;
-  var EPOCA=Date.parse("2026-10-29T17:30:00-03:00");  // quando a contagem comecou
+  // 48 HORAS POR VISITANTE (11/11/2026). Antes era uma janela de 2 dias igual
+  // para todos que reiniciava sozinha (29/10). Agora: na 1a visita grava no
+  // localStorage quando termina; recarregar a pagina NAO reinicia. Sem
+  // localStorage (aba anonima, bloqueio), conta 48 h a partir do carregamento.
+  var JANELA=48*3600*1000;
+  var CHAVE="bf_expira_v1";
   var FIM_REAL=Date.parse("2026-11-30T23:59:59-03:00");  // fim da promocao
+  var expira=0;
+  try{ expira=parseInt(localStorage.getItem(CHAVE),10)||0; }catch(e){}
+  if(!expira){
+    expira=Date.now()+JANELA;
+    try{ localStorage.setItem(CHAVE,String(expira)); }catch(e){}
+  }
+  if(expira>FIM_REAL) expira=FIM_REAL;  // nunca passa do fim real da promocao
   var alvos=["bf-relogio","bf-relogio2"];
   function dd(n){return n<10?"0"+n:""+n}
+  var timer;
   function pinta(){
-    var agora=Date.now();
-    var falta=FIM_REAL-agora;
-    // mostra sempre o MENOR dos dois: perto do fim da promocao conta o tempo
-    // de verdade, e o numero nunca sobe na troca.
-    var ciclo=CICLO-((agora-EPOCA)%CICLO);
-    var ms = (falta>0 && falta<ciclo) ? falta : (falta<=0 ? 0 : ciclo);
+    var ms=expira-Date.now();
+    if(ms<=0){
+      // acabou: nada de numero negativo, a frase toma o lugar do "termina em"
+      var cx=document.querySelectorAll(".bf-prazo");
+      for(var i=0;i<cx.length;i++) cx[i].textContent="Oferta encerrada em breve";
+      clearInterval(timer); return;
+    }
     var s=Math.floor(ms/1000), d=Math.floor(s/86400), hh=Math.floor(s%86400/3600),
         mm=Math.floor(s%3600/60), ss=s%60;
     var txt = d>0 ? (d+(d>1?" dias ":" dia ")+dd(hh)+":"+dd(mm)+":"+dd(ss))
                   : (dd(hh)+":"+dd(mm)+":"+dd(ss));
     alvos.forEach(function(id){var e=document.getElementById(id); if(e) e.textContent=" "+txt});
   }
-  pinta(); setInterval(pinta,1000);
+  timer=setInterval(pinta,1000); pinta();
 })();
 </script>
 </body>
