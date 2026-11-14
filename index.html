@@ -381,6 +381,22 @@ body{background:
 @media (max-width:768px){.testimonials-track{width:max-content;animation-name:dep-scroll-m}}
 @keyframes dep-scroll-m{0%{transform:translateX(0)}100%{transform:translateX(-900px)}}
 </style>
+<!-- TESTE A/B DO TOPO (14/11/2026 a ~05/12/2026): metade vê o vídeo 03, metade a foto.
+     Versão vai no checkout como sck=teste-video / sck=teste-foto (Kiwify > vendas > filtrar por sck).
+     Forçar uma versão: ?versao=video ou ?versao=foto. Para encerrar: apagar os blocos "teste-topo". -->
+<script id="teste-topo-escolha">(function(){var v,q=new URLSearchParams(location.search).get('versao');
+try{v=localStorage.getItem('teste_topo')}catch(e){}
+if(q==='video'||q==='foto')v=q;if(v!=='video'&&v!=='foto')v=Math.random()<0.5?'video':'foto';
+try{localStorage.setItem('teste_topo',v)}catch(e){}
+document.documentElement.setAttribute('data-versao',v);window.TESTE_TOPO=v;})();</script>
+<style id="teste-topo-css">
+html[data-versao=video] .hero-img-frame img{display:none}
+html[data-versao=video] .hero-img-frame{aspect-ratio:9/16;max-width:420px;margin:0 auto;background:#000}
+html[data-versao=video] .hero-img-frame video{width:100%;height:100%;object-fit:cover;display:block}
+html[data-versao=video] .hero-img-frame::after{display:none}
+html[data-versao=video] .hero-quote{display:none}
+.teste-som{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:5;background:rgba(0,0,0,.65);color:#fff;border:0;border-radius:40px;padding:10px 18px;font:700 14px var(--font-main,sans-serif);cursor:pointer}
+</style>
 </head>
 
 <body>
@@ -1097,6 +1113,18 @@ body{background:
   timer=setInterval(pinta,1000); pinta();
 })();
 </script>
+<script id="teste-topo-video">document.addEventListener('DOMContentLoaded',function(){
+var v=window.TESTE_TOPO||'foto';
+if(v==='video'){var vis=[].filter.call(document.querySelectorAll('.hero-img-frame'),function(f){return f.offsetParent!==null});
+vis.forEach(function(f){var el=document.createElement('video');el.src='./images/video-topo-o-que-voce-recebe.mp4';el.poster='./images/video-topo-capa.jpg';
+el.muted=true;el.autoplay=true;el.loop=true;el.playsInline=true;el.setAttribute('playsinline','');el.setAttribute('aria-label','Vídeo: o que você recebe no curso');
+var b=document.createElement('button');b.type='button';b.className='teste-som';b.textContent='Toque para ouvir';
+b.onclick=function(){el.muted=false;el.currentTime=0;el.play();b.remove()};
+f.appendChild(el);f.appendChild(b);el.play&&el.play().catch(function(){});});}
+document.querySelectorAll('a[href*="pay.kiwify.com.br"]').forEach(function(a){try{var u=new URL(a.href);u.searchParams.set('sck','teste-'+v);a.href=u.toString()}catch(e){}});
+try{fbq('trackCustom','TesteTopo',{versao:v})}catch(e){}
+try{gtag('event','teste_topo',{versao:v})}catch(e){}
+});</script>
 </body>
 
 </html>
