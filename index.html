@@ -375,28 +375,6 @@ body{background:
 </style>
 <!-- /BLACK FRIDAY -->
 
-<style>/* depoimentos: 3 cartões repetidos 3x (14/11/2026) */
-.testimonials-track{width:max-content;animation-name:dep-scroll}
-@keyframes dep-scroll{0%{transform:translateX(0)}100%{transform:translateX(-1110px)}}
-@media (max-width:768px){.testimonials-track{width:max-content;animation-name:dep-scroll-m}}
-@keyframes dep-scroll-m{0%{transform:translateX(0)}100%{transform:translateX(-900px)}}
-</style>
-<!-- TESTE A/B DO TOPO (14/11/2026 a ~05/12/2026): metade vê o vídeo 03, metade a foto.
-     Versão vai no checkout como sck=teste-video / sck=teste-foto (Kiwify > vendas > filtrar por sck).
-     Forçar uma versão: ?versao=video ou ?versao=foto. Para encerrar: apagar os blocos "teste-topo". -->
-<script id="teste-topo-escolha">(function(){var v,q=new URLSearchParams(location.search).get('versao');
-try{v=localStorage.getItem('teste_topo')}catch(e){}
-if(q==='video'||q==='foto')v=q;if(v!=='video'&&v!=='foto')v=Math.random()<0.5?'video':'foto';
-try{localStorage.setItem('teste_topo',v)}catch(e){}
-document.documentElement.setAttribute('data-versao',v);window.TESTE_TOPO=v;})();</script>
-<style id="teste-topo-css">
-html[data-versao=video] .hero-img-frame img{display:none}
-html[data-versao=video] .hero-img-frame{aspect-ratio:9/16;max-width:420px;margin:0 auto;background:#000}
-html[data-versao=video] .hero-img-frame video{width:100%;height:100%;object-fit:cover;display:block}
-html[data-versao=video] .hero-img-frame::after{display:none}
-html[data-versao=video] .hero-quote{display:none}
-.teste-som{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:5;background:rgba(0,0,0,.65);color:#fff;border:0;border-radius:40px;padding:10px 18px;font:700 14px var(--font-main,sans-serif);cursor:pointer}
-</style>
 </head>
 
 <body>
@@ -418,7 +396,7 @@ html[data-versao=video] .hero-quote{display:none}
                 <div>
                     <div class="bf-selo">BLACK FRIDAY · ATÉ 50% OFF</div>
                     <div class="hero-badge"><span class="dot"></span> Curso Online — Acesso Imediato</div>
-                    <h1>Do Zero ao seu <span class="gradient-text">Primeiro Atendimento Profissional</span> com <span class="gradient-text">Thai Massage</span></h1>
+                    <h1>Do Zero ao Atendimento <span class="gradient-text">High-Ticket</span> com <span class="gradient-text">Thai Massage</span></h1>
                     <div class="hero-img-wrapper hero-img-mobile" style="margin-bottom: 48px;">
                         <div class="hero-img-frame"><img src="./images/curso-thai-massage-hero.webp" fetchpriority="high"
                                 alt="Arnoldo Benkenstein demonstrando Thai Massage - Curso de Massagem Tailandesa"
@@ -666,8 +644,8 @@ html[data-versao=video] .hero-quote{display:none}
     <hr class="neon-divider">
     <section class="section bg-alt">
         <div class="container">
-            <div class="section-header reveal"><span class="section-label">Presente para você</span>
-                <h2 class="section-title">Bônus <span class="gradient-text">Exclusivo</span></h2>
+            <div class="section-header reveal"><span class="section-label">Presentes para você</span>
+                <h2 class="section-title">Bônus <span class="gradient-text">Exclusivos</span></h2>
                 <p class="section-subtitle">Garantindo sua vaga hoje, você ainda recebe:</p>
             </div>
             <div class="deliverable-grid">
@@ -677,6 +655,15 @@ html[data-versao=video] .hero-quote{display:none}
                     <div>
                         <h3>Desconto em Presenciais</h3>
                         <p>Cupom exclusivo para quem deseja aprofundar a prática em nossos cursos presenciais.</p>
+                    </div>
+                </div>
+                <div class="glass deliverable-card reveal" style="transition-delay:0.1s">
+                    <div class="deliverable-icon" style="background:rgba(91,124,83,0.1);color:var(--primary);"><i
+                            class="fas fa-users"></i></div>
+                    <div>
+                        <h3>Mentoria Online (3 meses)</h3>
+                        <p>Participe de 3 meses de mentorias exclusivas com o professor Arnoldo para tirar dúvidas e refinar sua
+                            técnica.</p>
                     </div>
                 </div>
             </div>
@@ -760,6 +747,17 @@ html[data-versao=video] .hero-quote{display:none}
         <div class="testimonials-carousel reveal">
             <div class="testimonials-track">
                 <div class="testimonial-card">
+                    <p class="testimonial-content">"O curso mudou minha percepção sobre a massagem. As manobras são
+                        explicadas com muita clareza e o suporte é sensacional."</p>
+                    <div class="testimonial-author"><img width="50" height="50"
+                            src="./images/depoimento-aluna-thai-massage-1.webp" class="author-img" loading="lazy"
+                            alt="Depoimento de aluna sobre o Curso de Thai Massage de Arnoldo Benkenstein">
+                        <div class="author-info">
+                            <h4>Grazy Grings</h4><span>Aluna / Massoterapeuta</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
                     <p class="testimonial-content">"Arnoldo é um mestre incrível. A técnica de Pha Khao Maa é um
                         diferencial enorme que me permitiu cobrar mais caro."</p>
                     <div class="testimonial-author"><img width="50" height="50"
@@ -771,7 +769,7 @@ html[data-versao=video] .hero-quote{display:none}
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-content">"Sempre volto para revisar
+                    <p class="testimonial-content">"O acesso vitalício vale cada centavo. Sempre volto para revisar
                         antes dos atendimentos. Super recomendo!"</p>
                     <div class="testimonial-author"><img width="50" height="50"
                             src="./images/depoimento-aluno-thai-massage-3.webp" class="author-img" loading="lazy"
@@ -793,6 +791,17 @@ html[data-versao=video] .hero-quote{display:none}
                     </div>
                 </div>
                 <div class="testimonial-card">
+                    <p class="testimonial-content">"O curso mudou minha percepção sobre a massagem. As manobras são
+                        explicadas com muita clareza e o suporte é sensacional."</p>
+                    <div class="testimonial-author"><img width="50" height="50"
+                            src="./images/depoimento-aluna-thai-massage-1.webp" class="author-img" loading="lazy"
+                            alt="Depoimento de aluna sobre o Curso de Thai Massage de Arnoldo Benkenstein">
+                        <div class="author-info">
+                            <h4>Grazy Grings</h4><span>Aluna / Massoterapeuta</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
                     <p class="testimonial-content">"Arnoldo é um mestre incrível. A técnica de Pha Khao Maa é um
                         diferencial enorme que me permitiu cobrar mais caro."</p>
                     <div class="testimonial-author"><img width="50" height="50"
@@ -804,7 +813,7 @@ html[data-versao=video] .hero-quote{display:none}
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-content">"Sempre volto para revisar
+                    <p class="testimonial-content">"O acesso vitalício vale cada centavo. Sempre volto para revisar
                         antes dos atendimentos. Super recomendo!"</p>
                     <div class="testimonial-author"><img width="50" height="50"
                             src="./images/depoimento-aluno-thai-massage-3.webp" class="author-img" loading="lazy"
@@ -825,38 +834,43 @@ html[data-versao=video] .hero-quote{display:none}
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-content">"Arnoldo é um mestre incrível. A técnica de Pha Khao Maa é um
-                        diferencial enorme que me permitiu cobrar mais caro."</p>
-                    <div class="testimonial-author"><img width="50" height="50"
-                            src="./images/depoimento-aluno-thai-massage-2.webp" class="author-img" loading="lazy"
-                            alt="Depoimento de aluno - Arnoldo Benkenstein Thai Massage">
-                        <div class="author-info">
-                            <h4>Gabriel Passos</h4><span>Aluno / Terapeuta Corporativo</span>
+            </div>
+        </div>
+    </section>
+    <hr class="neon-divider">
+    <section id="simulador" class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Simulador de Faturamento</span>
+                <h2 class="section-title">Quanto você pode <span class="gradient-text">faturar</span> com Thai Massage?</h2>
+                <p class="section-subtitle">Ajuste os valores abaixo para ver o potencial de retorno financeiro mensal e quantas vezes o valor do curso é pago por mês.</p>
+            </div>
+            <div class="simulator-box reveal">
+                <div class="sim-controls">
+                    <div class="sim-group">
+                        <div class="sim-label-row">
+                            <span>Atendimentos por Semana</span>
+                            <span class="sim-value-badge" id="sim-qty-val">5 sessões/semana</span>
                         </div>
+                        <input type="range" min="1" max="25" value="5" class="sim-slider" id="sim-qty-range">
+                    </div>
+                    <div class="sim-group">
+                        <div class="sim-label-row">
+                            <span>Valor cobrado por Sessão</span>
+                            <span class="sim-value-badge" id="sim-price-val">R$ 200</span>
+                        </div>
+                        <input type="range" min="120" max="450" step="10" value="200" class="sim-slider" id="sim-price-range">
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-content">"Sempre volto para revisar
-                        antes dos atendimentos. Super recomendo!"</p>
-                    <div class="testimonial-author"><img width="50" height="50"
-                            src="./images/depoimento-aluno-thai-massage-3.webp" class="author-img" loading="lazy"
-                            alt="Depoimento de aluno sobre a formação em Thai Massage">
-                        <div class="author-info">
-                            <h4>Marcelo Bender</h4><span>Aluno / Terapeuta Holístico</span>
-                        </div>
+                <div class="sim-results">
+                    <span class="sim-res-title">Faturamento Mensal Estimado</span>
+                    <div class="sim-res-val" id="sim-total-val">R$ 4.300</div>
+                    <div class="sim-payback-box" id="sim-payback-box">
+                        Carregando simulação...
                     </div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-content">"Finalmente entendi como aplicar pressão sem me cansar. A ergonomia
-                        ensinada é um divisor de águas."</p>
-                    <div class="testimonial-author"><img width="50" height="50"
-                            src="./images/depoimento-aluno-thai-massage-4.webp" class="author-img" loading="lazy"
-                            alt="Aluno do método de Massagem Tailandesa Arnoldo Benkenstein">
-                        <div class="author-info">
-                            <h4>Robson R.</h4><span>Aluno / Massoterapeuta</span>
-                        </div>
-                    </div>
+                    <p class="sim-res-note">
+                        *Calculado com base em 4.3 semanas mensais.
+                    </p>
                 </div>
             </div>
         </div>
@@ -1113,18 +1127,6 @@ html[data-versao=video] .hero-quote{display:none}
   timer=setInterval(pinta,1000); pinta();
 })();
 </script>
-<script id="teste-topo-video">document.addEventListener('DOMContentLoaded',function(){
-var v=window.TESTE_TOPO||'foto';
-if(v==='video'){var vis=[].filter.call(document.querySelectorAll('.hero-img-frame'),function(f){return f.offsetParent!==null});
-vis.forEach(function(f){var el=document.createElement('video');el.src='./images/video-topo-o-que-voce-recebe.mp4';el.poster='./images/video-topo-capa.jpg';
-el.muted=true;el.autoplay=true;el.loop=true;el.playsInline=true;el.setAttribute('playsinline','');el.setAttribute('aria-label','Vídeo: o que você recebe no curso');
-var b=document.createElement('button');b.type='button';b.className='teste-som';b.textContent='Toque para ouvir';
-b.onclick=function(){el.muted=false;el.currentTime=0;el.play();b.remove()};
-f.appendChild(el);f.appendChild(b);el.play&&el.play().catch(function(){});});}
-document.querySelectorAll('a[href*="pay.kiwify.com.br"]').forEach(function(a){try{var u=new URL(a.href);u.searchParams.set('sck','teste-'+v);a.href=u.toString()}catch(e){}});
-try{fbq('trackCustom','TesteTopo',{versao:v})}catch(e){}
-try{gtag('event','teste_topo',{versao:v})}catch(e){}
-});</script>
 </body>
 
 </html>
